@@ -2,7 +2,7 @@
 >>> This is my own implementation of UNIX shell
 ===================================================
 It contains:
-    - user`s input
+    - user`s input\n
       > backspace
       > logic operators || && 
       > cmd separator ;
