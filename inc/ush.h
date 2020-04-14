@@ -135,12 +135,19 @@ void mx_edit_str_flag_e(char *str, char *edited_str);
 void mx_edit_str_flag_big_e(char *str, char *edited_str);
 // |pwd|
 void mx_pwd(char **cmd_expression);
+void mx_pwd_too_many_args();
+void mx_bad_option(char *option);
 // |cd|
 void mx_cd(char **cmd_exp);
-int  mx_too_many_args(char **cmd_exp, char *flag);
+void mx_cd_home(char *oldcwd);
+char *mx_new_cwd_maker(char *new_dir);
+char *mx_prev_dir();
+int  mx_too_many_args(char **cmd_exp, char **flag, char **oldcwd);
 int  mx_access_errors(char *newcwd);
 char *mx_flag_retriever(char **cmd_exp);
 void mx_cwd_changer(char *newcwd, char *oldcwd);
+void mx_flag_s_link_error(char *arg);
+int  mx_pwd_var_error();
 // |jobs|
 void mx_jobs(t_proc *proc);
 // |exit|

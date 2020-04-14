@@ -7,6 +7,19 @@
       -e
       -E
 */
+
+// prints preproccessed cmd on stdout.
+static void result_print(char **cmd, int arg_indx2, char *flags) {
+    while(cmd[arg_indx2]) {
+        write(1, cmd[arg_indx2], mx_strlen(cmd[arg_indx2]));
+        if (cmd[arg_indx2 + 1])
+            write(1, " ", 1);
+        arg_indx2++;
+    }
+    if (flags[2] != 'n')
+        write(1, "\n", 1);
+}
+
 void mx_echo(char **cmd) {
     char *flags   = mx_flags_retriever(cmd);
     int  arg_indx = mx_flags_end_index(cmd);
@@ -22,14 +35,8 @@ void mx_echo(char **cmd) {
         cmd[arg_indx] = edited_str;
         arg_indx++;
     }
-
-    while(cmd[arg_indx2]) {
-        write(1, cmd[arg_indx2], mx_strlen(cmd[arg_indx2]));
-        if (cmd[arg_indx2 + 1])
-        write(1, " ", 1);
-        arg_indx2++;
-    }
-
-    if (flags[2] != 'n')
-        write(1, "\n", 1);
+    result_print(cmd, arg_indx2, flags);
 }
+
+
+

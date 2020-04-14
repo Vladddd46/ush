@@ -18,6 +18,11 @@ static char escape_char_determiner(char c) {
     return -1;
 }
 
+static void counters_increment(int *walker, int *index) {
+    *walker += 1;
+    *index  += 1;
+}
+
 void mx_edit_str_flag_e(char *str, char *edited_str) {
     int index     = 0;
     int walker    = 1;
@@ -35,13 +40,10 @@ void mx_edit_str_flag_e(char *str, char *edited_str) {
                 edited_str[index] = escape_char_determiner(str[walker]);
             else
                 edited_str[index] = str[walker];
-            index++;
-            walker++;
-            continue;
         }
-        edited_str[index] = str[walker];
-        index++;
-        walker++;
+        else
+            edited_str[index] = str[walker];
+        counters_increment(&walker, &index);
     }
 }
 

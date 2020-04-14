@@ -45,10 +45,18 @@ static void env_restore(char **copy_env) {
     }
 }
 
+static void print_specified_vars(char **cmd) {
+    int walker;
+
+    walker = 2;
+    while(cmd[walker]) {
+        printf("%s\n", cmd[walker]);
+        walker++;
+    }
+}
 
 void mx_env_flag_i(char **cmd, t_proc **proc) {
     int binary_index;
-    int walker;
     char **copy_env = mx_arr_copy(environ);
 
     if (mx_strarr_size(cmd) == 2)
@@ -60,15 +68,9 @@ void mx_env_flag_i(char **cmd, t_proc **proc) {
         mx_env_exe(cmd, binary_index, proc, getenv("PATH"));
         specified_vars_unset(cmd, 2);
     }
-    else {
-        walker = 2;
-        while(cmd[walker]) {
-            printf("%s\n", cmd[walker]);
-            walker++;
-        }
-    }
+    else
+        print_specified_vars(cmd);
     env_restore(copy_env);
-    // mx_arr_freesher(copy_env);
 }
 
 

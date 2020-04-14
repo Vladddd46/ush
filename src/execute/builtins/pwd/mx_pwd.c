@@ -15,29 +15,12 @@ static char *is_link(char *name) {
     return link_name;
 }
 
-static void too_many_args_error() {
-    char *msg = "pwd: too many arguments\n";
-    write(2, msg, mx_strlen(msg));
-}
-
-static void bad_option(char *option) {
-    char *msg  = "u$h: pwd: ";
-    char *msg1 = ": invalid option\n";
-    char *msg2 = "pwd: usage: pwd [-LP]\n";
-
-    write(2, msg, mx_strlen(msg));
-    write(2, option, mx_strlen(option));
-    write(2, msg1, mx_strlen(msg1));
-    write(2, msg2, mx_strlen(msg2));
-}
-
 // prints physical location of link
-void pwd_with_resolved_link(char *pwd, char *location) {
+static void pwd_with_resolved_link(char *pwd, char *location) {
     char **pwd_arr = mx_str_to_arr(pwd, '/');
 
     for (int i = 0; pwd_arr[i + 1]; ++i)
         printf("%s%s", "/",pwd_arr[i]);
-
     printf("%s%s\n", "/",location);
     mx_arr_freesher(pwd_arr);
 }
@@ -58,9 +41,19 @@ static void pwd_with_flags(char **cmd_expression) {
     }
 }
 
+static void pwd_not_set_err() {
+    char *msg = "pwd: enviroment variable PWD is not set\n";
+
+    write(2, msg, mx_strlen(msg));
+}
+
 void mx_pwd(char **cmd_expression) {
     if (mx_strarr_size(cmd_expression) > 2)
-        too_many_args_error();
+        mx_pwd_too_many_args();
+    else if (getenv("PWD") == NULL) {
+        pwd_not_set_err();
+        return;
+    }
     else if (mx_strarr_size(cmd_expression) == 1)
         printf("%s\n", getenv("PWD"));
     else if (mx_strarr_size(cmd_expression) == 2) {
@@ -68,6 +61,6 @@ void mx_pwd(char **cmd_expression) {
             || mx_strcmp(cmd_expression[1], "-P") == 0)
             pwd_with_flags(cmd_expression);
         else
-            bad_option(cmd_expression[1]);
+            mx_bad_option(cmd_expression[1]);
     }
 }

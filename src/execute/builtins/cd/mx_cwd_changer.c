@@ -10,6 +10,10 @@ void mx_cwd_changer(char *newcwd, char *oldcwd) {
         free(oldcwd);
         return;
     }
+    else if (oldcwd == NULL) {
+        free(newcwd);
+        return;
+    }
     setenv("PWD", newcwd, 1);
     setenv("OLDPWD", oldcwd, 1);
     chdir(newcwd);

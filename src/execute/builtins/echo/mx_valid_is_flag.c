@@ -9,11 +9,11 @@
 */
 int mx_valid_is_flag(char *flag) {
     char *n_combinations[12] = {"-n","-ne","-nE", "-En", "-en", "-neE", 
-                             "-nEe", "-enE", "-Ene", "-Een", "-eEn",NULL};
+                             "-nEe", "-enE", "-Ene", "-Een", "-eEn", NULL};
     char *big_e_combinations[12] = {"-E","-Ee","-En", "-nE", "-eE", "-Een", 
-                             "-Ene", "-eEn", "-nEe", "-neE", "-enE",NULL};
+                             "-Ene", "-eEn", "-nEe", "-neE", "-enE", NULL};
     char *e_combinations[12] = {"-e","-en","-eE", "-Ee", "-ne", "-enE", 
-                             "-eEn", "-neE", "-Een", "-Ene", "-nEe",NULL};  
+                             "-eEn", "-neE", "-Een", "-Ene", "-nEe", NULL};  
 
     if (mx_str_in_arr_index(n_combinations, flag) != -1)
         return 2;
