@@ -92,6 +92,9 @@ char *mx_env_value_get(char *str, int start_indx, int end_indx);
 char *mx_str_edit(char *str, char *value, int indx1, int indx2);
 // command substitution
 void mx_cmd_substitution(char **cmd, t_proc **proc);
+char *mx_exe(char **cmd_arr, t_proc **proc);
+char *mx_subcmd_exe(char *expr, int start_indx, 
+                    int end_indx, t_proc **proc);
 /* ------------- */
 
 /* PARSING MODULE */
