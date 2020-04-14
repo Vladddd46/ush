@@ -11,10 +11,12 @@ t_parsed_blocks *mx_expression_parse(char *expression) {
     char *prettier_expression = mx_space_prettier(expression);
     char **exp_div_by_space   = mx_divide_by_space(prettier_expression);
     t_parsed_blocks *list;
-    
+
     free(prettier_expression);
-    if (mx_parse_error(exp_div_by_space))
+    if (mx_parse_error(exp_div_by_space)) {
+        mx_arr_freesher(exp_div_by_space);
         return NULL; 
+    }
     /*
         * creates list of secified by user commands.
         * Node:

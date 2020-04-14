@@ -6,7 +6,6 @@
 
 static int exit_status_func(int status, t_proc **proc, char *proc_name) {
     int   exit_status = 1;
-
     // if proccess was stopped by ctrl+z
     if (WIFSTOPPED(status)) {
         exit_status = 0;
