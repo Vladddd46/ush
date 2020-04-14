@@ -9,13 +9,13 @@ void mx_prs_blocks_push_back(t_parsed_blocks **list,
                             char *separator,  
                             int  builtin) {
     int id = 0;
+
     if (*list != NULL) {
         t_parsed_blocks *tmp = *list;
         while (tmp -> next != NULL)
             tmp = tmp -> next;
         id = tmp -> id + 1;
     }
-    
     t_parsed_blocks *node = mx_create_parsed_blocks_node(cmd_expr, separator,
                                                          builtin,  id);
     t_parsed_blocks *last_el;

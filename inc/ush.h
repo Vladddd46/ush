@@ -1,3 +1,4 @@
+#pragma once
 /*  LIBRARIES  */
 #include <dirent.h>
 #include <stdio.h>

@@ -30,6 +30,10 @@ It contains:
       > command substitution  `command`; $(command)
 GitHub: Vladddd46
 10.12.2020
+PS. There are some functuons,
+    which are little inadequate divided into smaller functions.
+    This is done because of the code style I must stick to. 
+    (each func. must be 20 or less line) 
 ===================================================
 */
 
@@ -48,7 +52,7 @@ static int continue_(char **arr) {
 static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) {
     while (1) {
         user_input = mx_getting_input();
-        if (mx_balanced_parentheses_checker(user_input) == -1){
+        if (mx_balanced_parentheses_checker(user_input) == -1) {
             free(user_input);
             if (!isatty(0))
                 exit(2);
@@ -62,9 +66,10 @@ static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) 
         }
         // processing each cmd from splt_by_semicolon
         for (int i = 0; splt_by_semicolon[i]; ++i)
-            mx_main2(splt_by_semicolon[i], &proc_list); 
+            mx_main2(splt_by_semicolon[i], &proc_list);
         if (!isatty(0))
             exit(0);
+        mx_arr_freesher(splt_by_semicolon);
     }
 }
 
