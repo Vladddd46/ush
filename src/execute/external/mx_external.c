@@ -4,8 +4,17 @@
     * executes functions, which are not built in shell
 */
 
+static void free_node(t_proc **node) {
+    if (node[0] != NULL) {
+        free(node[0]->proc_name);
+        free(node[0]);
+    }
+}
+
 static int exit_status_func(int status, t_proc **proc, char *proc_name) {
     int   exit_status = 1;
+    t_proc *node_to_free;
+
     // if proccess was stopped by ctrl+z
     if (WIFSTOPPED(status)) {
         exit_status = 0;
@@ -16,7 +25,9 @@ static int exit_status_func(int status, t_proc **proc, char *proc_name) {
     else if (WIFEXITED(status) || WTERMSIG(status) == 2) {
         if (WTERMSIG(status) == 2)
             exit_status = 0;
+        node_to_free = proc[0];
         proc[0] = proc[0]->next;
+        free_node(&node_to_free);
     }
     return exit_status;
 }

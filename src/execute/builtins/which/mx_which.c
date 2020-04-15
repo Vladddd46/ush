@@ -1,83 +1,48 @@
 #include "ush.h"
+/*
+    * implementation of which built in
+*/
 
-static void print_error(char **command, int i){
-	mx_printstr(command[i]);
-    mx_printstr(" not found \n");
+static void find(char *bin_name, char *path, char *flags) {
+    char **pathes = mx_str_to_arr(path, ':');
+    struct dirent *entry;
+    DIR *dir;   
+    int i = 0;
 
-}
-
-static char **yos(char **command){
-	if (command[1][0] != '-') {
-        char *copy = " ";
-        char *buf = " ";
-        buf = command[1];
-        command[1] = copy;
-        for (int i = 2; i < mx_strarr_size(command) + 1; ++i) {
-            command[i] = buf;
-            buf = command[i + 1];
+    while(pathes[i]) {
+        dir = opendir(pathes[i]);
+        if (dir == NULL)
+            free(dir);
+        else {
+            while((entry = readdir(dir)) != NULL) {
+                if (mx_strcmp(bin_name,  entry->d_name) == 0) {
+                    printf("%s/%s\n", pathes[i], bin_name);
+                    if (mx_is_in_arr(flags, 'a') != 1)
+                        break;
+                }      
+            }
+            closedir(dir);
         }
+        i++;
     }
-    return command;
 }
 
-static int *flag_parser(char **command,int *flags){
-	if(command[1][0] == '-'){
-    	flags[0] = mx_is_in_arr(command[1], 's');
-    	flags[2] = mx_is_in_arr(command[1], 'a');
-    	for (int i = 1; i < mx_strlen(command[1]); ++i) {
-    		if (command[1][i] != 's' && command[1][i] != 'a')  {
-    			mx_printstr("which: bad option: -");
-    			write(1, &command[1][i], 1);
-    			mx_printstr("\n");
-    			flags[1] = 4;
-    			return flags;
-    		}
-    	}
-		return flags;
-	}
-	flags[0] = 2;
-	return flags;
+void mx_which(char **cmd) {
+    if(mx_which_usage_err(cmd))
+        return;
+    int arg_index       = 1;
+    char *flags         = mx_which_flags_determine(cmd, &arg_index);
+
+    if (flags == NULL || getenv("PATH") == NULL) 
+        return;
+    while (cmd[arg_index]) {
+        find(cmd[arg_index], getenv("PATH"), flags);
+        arg_index++;
+    }
+    free(flags);
 }
 
-static char **getpath(){
-	char *path = getenv("PATH");
-	char **paths = mx_str_to_arr(path,':');
-	return paths;
-}
 
-int mx_which(char **command) {
-	struct dirent *pDirent;
-    DIR *pDir;
-	char **paths = getpath();
-	int *flags = malloc(sizeof(int*) * 2);
-		if (mx_strarr_size(command) > 1) {
-			command = yos(command);
-			flags = flag_parser(command,flags);
-			if (flags[1] != 4) {
-				for (int i = 2 , flag = 0;command[i]; i++){
-					flag = 0;
-					for (int len = 0; paths[len]; len++){
-						pDir = opendir (paths[len]);
-						while ((pDirent = readdir(pDir)) != NULL) {
-		       		 		if (mx_strcmp(pDirent->d_name, command[i])== 0){
-		        	    		mx_printstr(mx_three_join(paths[len],"/",pDirent->d_name));
-		        	    		mx_printstr("\n");
-		           		 		flag++;
-		           		 		if (flags[0] == 1)
-		       		 				return 1;
-		           		 		else if(flags[0] == 2)
-		           		 			return 0;
-		        				else if (flags[2] == 1)
-		        					continue;
-		        			}
-		       			}
-		       		}
-		       	if (flag == 0)
-		       		print_error(command,i);
-		    }
-		}
-	}
-	free(flags);
-    return 0;
-}
+
+
 

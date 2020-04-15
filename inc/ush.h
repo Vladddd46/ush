@@ -125,7 +125,9 @@ char *mx_find_external_storage_path(char *external_name, char *path);
 /* ------------- */
 
 /* BUITIN`S */
-int mx_which(char **command);
+int  mx_which_usage_err(char **cmd);
+char *mx_which_flags_determine(char **cmd, int *arg_index);
+void mx_which(char **cmd);
 // |echo|
 void mx_echo(char **cmd);
 int  mx_is_quoted(char *str);

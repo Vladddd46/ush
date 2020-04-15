@@ -6,7 +6,7 @@ static t_proc *create_node(pid_t pid, char *proc_name, int id) {
     t_proc *node = (t_proc *)malloc(sizeof(t_proc));
     node->id = id;
     node->pid = pid;
-    node->proc_name = proc_name;
+    node->proc_name = mx_string_copy(proc_name);
     node->next = NULL;
     return node;
 }

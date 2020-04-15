@@ -1,9 +1,9 @@
 #include "ush.h"
 
-static void free_node(t_proc *node) {
-    if (node != NULL) {
-        free(node->proc_name);
-        free(node);
+static void free_node(t_proc **node) {
+    if (node[0] != NULL) {
+        free(node[0]->proc_name);
+        free(node[0]);
     }
 }
 
@@ -14,7 +14,7 @@ static void proc_list_refresh(int status, pid_t pid, t_proc **proc) {
         if (proc[0]->pid == pid) {
             del = proc[0];
             proc[0] = proc[0]->next;
-            free_node(del);
+            free_node(&del);
         }
         else  {
             t_proc *tmp = proc[0];
@@ -22,7 +22,7 @@ static void proc_list_refresh(int status, pid_t pid, t_proc **proc) {
                 if (tmp->next->pid == pid) {
                     del = tmp->next;
                     tmp->next = tmp->next->next;
-                    free_node(del);
+                    free_node(&del);
                 }
                 tmp = tmp->next;
             }
