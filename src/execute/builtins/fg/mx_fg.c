@@ -26,7 +26,8 @@ static void renew_suspended_process_by_name(t_proc **proc, char *arg) {
     int found = 1;
 
     while (tmp) {
-        if (mx_strcmp(arg, tmp->proc_name) == 0) {
+        if (mx_strcmp(arg, tmp->proc_name) == 0 
+            || arg[0] == tmp->proc_name[0]) {
             mx_fg_execute(tmp->pid, proc);
             found = 0;
             break;
