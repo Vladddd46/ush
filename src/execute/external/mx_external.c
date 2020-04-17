@@ -39,7 +39,8 @@ int mx_external(char **cmd_expression, t_proc **proc, char *path) {
     int   parent_pid = getpid();
     pid_t proccess = fork();
 
-    mx_push_proc_front(&proc[0], proccess, cmd_expression[0]);
+    if (proccess != 0)
+        mx_push_proc_front(&proc[0], proccess, cmd_expression[0]);
     if (proccess == 0) {
         mx_signals_restore();
         setpgid(getpid(), getpid());

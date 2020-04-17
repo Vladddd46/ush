@@ -46,7 +46,7 @@ int mx_execute(char **cmd_expression, t_proc **proc) {
         mx_built_ins_launcher(cmd_expression, &proc[0]);
     else { 
     	slash_chars_handler(cmd_expression);
-        status = mx_external(cmd_expression, &proc[0], getenv("PATH")); 
+        status = mx_external(cmd_expression, &proc[0], getenv("PATH"));
     }
     return status;
 }

@@ -10,7 +10,7 @@ int mx_executing(char **cmd_expression, char *path) {
     int exe_status = 0;
     char *external_path = mx_find_external_storage_path(cmd_expression[0], 
                                                         path);
-    
+
     if (external_path != NULL)
         exe_status = execv(external_path, cmd_expression);
     else 

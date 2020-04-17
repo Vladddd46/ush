@@ -37,9 +37,12 @@ static char *search(char **pathes, char *external_name) {
 
 
 char *mx_find_external_storage_path(char *external_name, char *path) {
-    char **pathes = mx_str_to_arr(path, ':');
+    char **pathes;
     char *found_path;
-
+    
+    if (path == NULL)
+        return NULL;
+    pathes = mx_str_to_arr(path, ':');
     if (pathes == NULL) {
         mx_arr_freesher(pathes);
         return NULL;
