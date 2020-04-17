@@ -78,6 +78,7 @@ void mx_pop_back_brace_stack(t_braces_stack **list);
 
 /* INPUT PREPROCESSER */
 void mx_input_preprocessing(char **cmd_expression, t_proc **proc);
+void mx_arguments_preprocessor(char **cmd);
 // tilda
 void mx_tilda_handler(char **cmd);
 void mx_resolution_error(char *var_name);
@@ -228,6 +229,7 @@ char *mx_arr_to_path(char **arr);
 int  mx_is_alphadigit(char c);
 char **mx_arr_copy(char **old_arr);
 char *mx_str_realloc(char *str, int added_size);
+char *mx_upper_to_lower(char *old_str);
 /* ------------- */
 
 /* MINI_FUNC */
