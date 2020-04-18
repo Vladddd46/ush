@@ -8,7 +8,7 @@
 char *mx_new_cwd_maker(char *new_dir) {
     char *newcwd;
     char *PWD = getenv("PWD");
-
+    
     if (mx_strcmp(".", new_dir) == 0)
         return  mx_string_copy(PWD);
     

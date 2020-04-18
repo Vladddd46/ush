@@ -10,14 +10,22 @@
 */
 static char *is_link(char *name) {
     char *link_name;
-    char buff[4026];
-    int buff_size = readlink(name, buff, 4026);
-    
+    char *buff      = mx_strnew(4026);
+    int  buff_size  = readlink(name, buff, 4026);
+    int  i          = 0;
+    int  buff_index = 0;
+
     if (buff_size == -1)
         return NULL;
-    link_name = mx_strnew(buff_size);
-    for (int i = 0; i < buff_size; ++i)
-        link_name[i] = buff[i];
+    link_name = mx_strnew(buff_size + 1);
+    if (name[0] == '/') {
+        link_name[0] = '/';
+        i++;
+    }
+    for (; buff[buff_index]; ++i) {
+        link_name[i] = buff[buff_index];
+        buff_index++;
+    }
     return link_name;
 }
 
