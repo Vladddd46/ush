@@ -36,7 +36,7 @@ void mx_env_flag_u(char **cmd, t_proc **proc) {
             unsetenv(cmd[2]);
             mx_env_exe(cmd, 3, proc, getenv("PATH"));
             putenv(unset_var_value);
-            // free(unset_var_value);
+            free(unset_var_value);
         }
     }
 }

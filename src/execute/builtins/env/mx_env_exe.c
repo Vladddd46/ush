@@ -11,12 +11,12 @@
     >>> new_cwd = {"ls", "-l", "-a"};
 */
 static char **correct_command_retriever(char **old_cwd, int bin_index) {
-    int len = mx_strarr_size(old_cwd) - bin_index;
+    int len        = mx_strarr_size(old_cwd) - bin_index;
     char **new_cwd = mx_new_strarr(len);
     int index = 0;
 
     while(old_cwd[bin_index]) {
-        new_cwd[index] = old_cwd[bin_index];
+        new_cwd[index] = mx_string_copy(old_cwd[bin_index]);
         index++;
         bin_index++;
     }
