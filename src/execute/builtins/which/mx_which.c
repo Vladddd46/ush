@@ -3,8 +3,14 @@
     * implementation of which built in
 */
 
-static void find(char *bin_name, char *path, char *flags) {
-    char **pathes = mx_str_to_arr(path, ':');
+static void was_found_actions(char *flags, char *path, 
+                              char *bin_name, int *found) {
+    if (flags[1] != 's')
+        printf("%s/%s\n", path, bin_name);
+    *found = 1;
+}
+
+static void find(char *bin_name, char **pathes, char *flags, int *found) {
     struct dirent *entry;
     DIR *dir;   
     int i = 0;
@@ -16,7 +22,7 @@ static void find(char *bin_name, char *path, char *flags) {
         else {
             while((entry = readdir(dir)) != NULL) {
                 if (mx_strcmp(bin_name,  entry->d_name) == 0) {
-                    printf("%s/%s\n", pathes[i], bin_name);
+                    was_found_actions(flags, pathes[i], bin_name, found);
                     if (mx_is_in_arr(flags, 'a') != 1)
                         break;
                 }      
@@ -27,13 +33,26 @@ static void find(char *bin_name, char *path, char *flags) {
     }
 }
 
-static void is_builtin(char *name) {
+static void is_builtin(char *name, int *found, char *flags) {
     char *builtins[12] = {"cd", "export", "env", "unset", 
                           "echo", "exit", "fg", "jobs", 
                           "pwd", "which", NULL};
     if (mx_str_in_arr_index(builtins, name) != -1) {
-        printf("%s: shell built-in command.\n", name);
+        *found = 1;
+        if (mx_is_in_arr(flags, 's') != 1)
+            printf("%s: shell built-in command.\n", name);
     }
+}
+
+static void s_flag_resolver(char *flags, int found) {
+    if (flags[1] == 's') {
+        if (found)
+            setenv("?", "0", 1);
+        else
+            setenv("?", "1", 1);
+    }
+    else
+        setenv("?", "0", 1);
 }
 
 void mx_which(char **cmd) {
@@ -41,15 +60,19 @@ void mx_which(char **cmd) {
         return;
     int arg_index       = 1;
     char *flags         = mx_which_flags_determine(cmd, &arg_index);
+    int found           = 0;
+    char **pathes;
 
     if (flags == NULL || getenv("PATH") == NULL) 
         return;
+    pathes = mx_str_to_arr(getenv("PATH"), ':');
     while (cmd[arg_index]) {
         if (mx_is_in_arr(flags, 'a') == 1)
-            is_builtin(cmd[arg_index]);
-        find(cmd[arg_index], getenv("PATH"), flags);
+            is_builtin(cmd[arg_index], &found, flags);
+        find(cmd[arg_index], pathes, flags, &found);
         arg_index++;
     }
+    s_flag_resolver(flags, found);
     free(flags);
 }
 

@@ -85,6 +85,8 @@ int main() {
 
     mx_signals_ignore();
     mx_shlvl_adder();
+    // setting variable for exit status.
+    putenv("?=0"); 
     loop(proc_list, user_input, splt_by_semicolon);
 }
 

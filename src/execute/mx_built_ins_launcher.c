@@ -1,5 +1,10 @@
 #include "ush.h"
 
+static void refresh_exit_status(char **cmd_expression) {
+    if (mx_strcmp(cmd_expression[0], "which")  != 0)
+        setenv("?", "0", 1);
+}
+
 // launches built-in
 void mx_built_ins_launcher(char **cmd_expression, t_proc **proc) {
     if (mx_strcmp(cmd_expression[0],      "export") == 0)
@@ -22,6 +27,7 @@ void mx_built_ins_launcher(char **cmd_expression, t_proc **proc) {
         mx_jobs(proc[0]);
     else if (mx_strcmp(cmd_expression[0], "cd")     == 0)
         mx_cd(cmd_expression);
+    refresh_exit_status(cmd_expression);
 }
 
 

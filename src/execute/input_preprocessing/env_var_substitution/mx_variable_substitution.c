@@ -24,8 +24,8 @@ static void subst_loop(int *omit, int *i, int *j, int *end_indx, char **cmd) {
         while(cmd[*i][*j]) {
             if (is_omitted(omit, cmd[*i][*j]))
                 continue;
-            else if (cmd[*i][*j] == '$' && (mx_is_alphadigit(cmd[*i][*j+1]) 
-                    || cmd[*i][*j + 1] == '$' || cmd[*i][*j + 1] == '{')) {
+            else if (cmd[*i][*j] == '$' && (mx_is_alphadigit(cmd[*i][*j + 1]) 
+                    || mx_is_in_arr("$?", cmd[*i][*j + 1]) || cmd[*i][*j + 1] == '{')) {
                 *end_indx   = mx_end_index_finder(cmd[*i], *j);
                 value       = mx_env_value_get(cmd[*i], *j, *end_indx);
                 edited_str  = mx_str_edit(cmd[*i], value, *j, *end_indx);

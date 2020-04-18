@@ -50,6 +50,7 @@ int mx_external(char **cmd_expression, t_proc **proc, char *path) {
     }
     else {
         waitpid(proccess, &status, WUNTRACED);
+        setenv("?", mx_itoa(status), 1);
         mx_controlling_terminal_change(parent_pid);
         mx_signals_ignore();
         exit_status = exit_status_func(status, &proc[0], cmd_expression[0]);
