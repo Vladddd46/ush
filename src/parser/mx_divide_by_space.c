@@ -9,13 +9,13 @@
 static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
     if (str[0][*index] == '\"') {
         *index += 1;
-        while (str[0][*index] != '\"') {
+        while (str[0][*index] && str[0][*index] != '\"') {
             if (str[0][*index] == ' ')
                 dirty_str[0][*index] = 12;
             *index += 1;
         }
     }
-    else if (str[0][*index] == '\'') {
+    else if (str[0][*index] && str[0][*index] == '\'') {
         *index += 1;
         while (str[0][*index] != '\'') {
             if (str[0][*index] == ' ')
@@ -29,7 +29,7 @@ static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
 static void spaces_in_braces(char **str, char **dirty_str, int *index) {
     if (str[0][*index] == '(') {
         *index += 1;
-        while (str[0][*index] != ')') {
+        while (str[0][*index] && str[0][*index] != ')') {
             if (str[0][*index] == ' ')
                 dirty_str[0][*index] = 12;
             *index += 1;
@@ -37,7 +37,7 @@ static void spaces_in_braces(char **str, char **dirty_str, int *index) {
     }
     else if (str[0][*index] == '`') {
         *index += 1;
-        while (str[0][*index] != '`') {
+        while (str[0][*index] && str[0][*index] != '`') {
             if (str[0][*index] == ' ')
                 dirty_str[0][*index] = 12;
             *index += 1;

@@ -138,7 +138,6 @@ int  mx_flags_end_index(char **cmd);
 char *mx_not_quoted_str_editor(char *str);
 char *mx_quoted_str_editor(char *str, char *flags);
 void mx_edit_str_flag_e(char *str, char *edited_str);
-void mx_edit_str_flag_big_e(char *str, char *edited_str);
 // |pwd|
 void mx_pwd(char **cmd_expression);
 void mx_pwd_too_many_args();

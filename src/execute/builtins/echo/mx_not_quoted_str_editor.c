@@ -12,15 +12,14 @@ char *mx_not_quoted_str_editor(char *str) {
     int index  = 0;
 
     while(str[walker]) {
-        if (str[walker] == '\\' && omit == 0) {
+        if (str[walker] == '\\' && omit == 0)
             omit = 1;
-            walker++;
-            continue;
+        else {
+            edited_str[index] = str[walker];
+            omit = 0;
+            index++;
         }
-        edited_str[index] = str[walker];
         walker++;
-        omit = 0;
-        index++;
     }
     result = mx_string_copy(edited_str);
     free(edited_str);
