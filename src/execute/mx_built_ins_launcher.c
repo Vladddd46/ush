@@ -1,7 +1,8 @@
 #include "ush.h"
 
 static void refresh_exit_status(char **cmd_expression) {
-    if (mx_strcmp(cmd_expression[0], "which")  != 0)
+    if (cmd_expression[0] && 
+        mx_strcmp(cmd_expression[0], "which")  != 0)
         setenv("?", "0", 1);
 }
 
