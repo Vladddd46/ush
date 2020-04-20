@@ -11,7 +11,7 @@ static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
         *index += 1;
         while (str[0][*index] && str[0][*index] != '\"') {
             if (str[0][*index] == ' ')
-                dirty_str[0][*index] = 12;
+                dirty_str[0][*index] = '0';
             *index += 1;
         }
     }
@@ -19,7 +19,7 @@ static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
         *index += 1;
         while (str[0][*index] != '\'') {
             if (str[0][*index] == ' ')
-                dirty_str[0][*index] = 12;
+                dirty_str[0][*index] = '0';
             *index += 1;
         }
     }
@@ -76,11 +76,13 @@ static char *dirty_str_maker(char *str) {
     char *dirty_str      = mx_string_copy(str);
     char *spaces_changed;
     int index  = 0;
+    int index2 = 0;
 
     while (str[index]) {
         spaces_in_quotes(&str,   &dirty_str, &index);
-        spaces_in_braces(&str,   &dirty_str, &index);
+        spaces_in_braces(&str,   &dirty_str, &index2);
         index++;
+        index2++;
     }
     spaces_changed = slash_space_change(dirty_str);
     free(dirty_str);
