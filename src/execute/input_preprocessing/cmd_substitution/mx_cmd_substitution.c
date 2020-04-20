@@ -35,7 +35,6 @@ void mx_cmd_substitution(char **cmd, t_proc **proc) {
     int end_index;
     int i = 0;
     int j;
-
     while(cmd[i]) {
         j = 0;
         while(cmd[i][j]) {
@@ -51,7 +50,7 @@ void mx_cmd_substitution(char **cmd, t_proc **proc) {
             j++;
         }
         i++;
-    }       
+    }
 }
 
 
