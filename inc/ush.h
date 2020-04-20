@@ -24,6 +24,7 @@
 #include <string.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <setjmp.h>
 /* ------------- */
 
 extern char **environ;

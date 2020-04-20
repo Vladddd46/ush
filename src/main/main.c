@@ -52,10 +52,12 @@ static int continue_(char **arr) {
 static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) {
     while (1) {
         user_input = mx_getting_input();
-        if (mx_balanced_parentheses_checker(user_input) == -1) {
-            free(user_input);
+        if (user_input == NULL || mx_balanced_parentheses_checker(user_input) == -1) {
+            if(user_input != NULL)
+              free(user_input);
             if (!isatty(0))
                 exit(2);
+            write(1,"\n", 1);
             continue;
         }
         splt_by_semicolon = mx_semicolon_divider(user_input);

@@ -34,6 +34,12 @@ static char *buff_cutter(char **input, int *index) {
     return result;
 }
 
+static jmp_buf env;
+static void sigint_handler() {
+    longjmp(env, 42);
+}
+
+
 char *mx_input() {
     struct termios orig_termios;
     tcgetattr(0, &orig_termios);
@@ -43,7 +49,13 @@ char *mx_input() {
     int  index = 0;
 
     while (buff != 13 && buff != 10) {
+        signal(SIGINT, sigint_handler);
         mx_enable_raw_mode(orig_termios);
+         if (setjmp(env) == 42) {
+              free(input);
+              mx_disable_raw_mode(orig_termios);
+              return NULL;
+         }
         read(0, &buff, 1);
         mx_screen_update(input, buff, orig_termios);
         if (buff == 127)

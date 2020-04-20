@@ -6,6 +6,7 @@
         ctrl+z 
 */
 
+
 void mx_signals_ignore() {
     signal(SIGTTIN, SIG_IGN);
     signal(SIGTTOU, SIG_IGN);
