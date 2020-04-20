@@ -27,16 +27,11 @@ static void input_printer(char *input) {
     }
 }
 
-void mx_screen_update(char *input, char buff, struct termios std_term) {
+void mx_screen_update(char *input, char buff) {
     if (buff == 127) {
         line_cleaner(input);
         write(1, "\ru$h> ", 7);
         input_printer(input);
-    }
-    else if (iscntrl(buff)) {
-        // if ctrl + d was pressed
-        if (buff == 4)
-            mx_ctrl_d(std_term);
     }
     else if (buff != '\n' && buff != 127)
         write(1, &buff, 1);

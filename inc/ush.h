@@ -66,11 +66,12 @@ void  mx_shlvl_adder();
 char  *mx_getting_input();
 
 /* INPUT MODULE */
-char *mx_input();
+char *mx_input(struct termios orig_termios);
 void mx_enable_raw_mode(struct termios orig_termios);
 void mx_disable_raw_mode(struct termios orig_termios);
-void mx_ctrl_d(struct termios orig_termios);
-void mx_screen_update(char *input, char buff, struct termios std_term);
+void mx_ctrl_d(char buff, struct termios orig_termios);
+void mx_screen_update(char *input, char buff);
+void mx_reallocation(char **input, int *index, int *size);
 // balanced parentheses checker
 int  mx_balanced_parentheses_checker(char *input);
 void mx_push_front_brace(t_braces_stack **list, char brace, int index);

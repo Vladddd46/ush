@@ -5,25 +5,6 @@
       in non-canonical terminal mode.
 */
 
-// reallocates memory for buffer(input) if it`s needed.
-static void reallocation(char **input, int *index, int *size) {
-    char *free_input;
-
-    if (*index + 1 == *size) {
-        free_input = *input;
-        *input = mx_str_realloc(*input, 100);
-        *size += 100;
-        free(free_input);
-     }
-}
-
-// decrements writing index, when user wrote backspace(127)
-static void index_decrement(int *index, char **input) {
-    if (*index != 0)
-        *index -= 1;
-    input[0][*index] = '\0';
-}
-
 // cuts buffer(input) into inputed sting size
 static char *buff_cutter(char **input, int *index) {
     char *result;
@@ -34,15 +15,35 @@ static char *buff_cutter(char **input, int *index) {
     return result;
 }
 
-static jmp_buf env;
+static jmp_buf jump;
 static void sigint_handler() {
-    longjmp(env, 42);
+    longjmp(jump, 42);
 }
 
+/*
+    * does all needed operations, that should be performed
+      after inputing characker by user.
+      a) updates screen
+         - prints new inputed char.
+         - in case of backspace erase  char.
+         - reallocates buffer if it`s size is full.
+*/
+static void post_input(char **input, char buff, int *size, int *index) {
+    mx_screen_update(input[0], buff);
+    if (buff == 127) {
+        if (*index != 0) {
+            *index -= 1;
+            input[0][*index] = '\0';
+        }
+    }
+    else {
+        mx_reallocation(input, index, size);
+        input[0][*index] = buff;
+        *index += 1;
+    }
+}
 
-char *mx_input() {
-    struct termios orig_termios;
-    tcgetattr(0, &orig_termios);
+char *mx_input(struct termios orig_termios) {
     char buff = '\0';
     int  size = 100;
     char *input = mx_strnew(size);
@@ -51,20 +52,14 @@ char *mx_input() {
     while (buff != 13 && buff != 10) {
         signal(SIGINT, sigint_handler);
         mx_enable_raw_mode(orig_termios);
-         if (setjmp(env) == 42) {
+        if (setjmp(jump) == 42) {
               free(input);
               mx_disable_raw_mode(orig_termios);
               return NULL;
          }
         read(0, &buff, 1);
-        mx_screen_update(input, buff, orig_termios);
-        if (buff == 127)
-            index_decrement(&index, &input);
-        else {
-            reallocation(&input, &index, &size);
-            input[index] = buff;
-            index++;
-        }
+        mx_ctrl_d(buff, orig_termios);
+        post_input(&input, buff, &size, &index);
         mx_disable_raw_mode(orig_termios);
     }
     return buff_cutter(&input, &index);
