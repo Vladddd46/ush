@@ -11,7 +11,7 @@ static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
         *index += 1;
         while (str[0][*index] && str[0][*index] != '\"') {
             if (str[0][*index] == ' ')
-                dirty_str[0][*index] = '0';
+                dirty_str[0][*index] = 12;
             *index += 1;
         }
     }
@@ -19,7 +19,7 @@ static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
         *index += 1;
         while (str[0][*index] != '\'') {
             if (str[0][*index] == ' ')
-                dirty_str[0][*index] = '0';
+                dirty_str[0][*index] = 12;
             *index += 1;
         }
     }
