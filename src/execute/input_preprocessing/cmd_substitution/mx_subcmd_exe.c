@@ -23,7 +23,7 @@ static char **cmd_to_arr(char *expr, int start_indx, int end_indx) {
 
     if (cmd == NULL)
         return NULL;
-    cmd_arr = mx_str_to_arr(cmd, ' ');
+    cmd_arr = mx_divide_by_space(cmd);
     free(cmd);
     return cmd_arr;
 }
