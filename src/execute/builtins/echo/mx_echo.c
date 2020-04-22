@@ -36,6 +36,7 @@ void mx_echo(char **cmd) {
         arg_indx++;
     }
     result_print(cmd, arg_indx2, flags);
+    free(flags);
 }
 
 
