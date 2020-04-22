@@ -13,10 +13,12 @@ t_parsed_blocks *mx_list_creator(char **separators, char **exp_div_by_space) {
             cmd_expr = mx_divide_arr_by_index(exp_div_by_space, command_index, walker - 1);
             mx_prs_blocks_push_back(&list, cmd_expr, mx_string_copy(exp_div_by_space[walker]), 0);
             command_index = walker + 1;
+            free(cmd_expr);
         }
         else if (exp_div_by_space[walker + 1] == NULL) { // if last element
             cmd_expr = mx_divide_arr_by_index(exp_div_by_space, command_index, walker);
             mx_prs_blocks_push_back(&list, cmd_expr, NULL, 0);
+            free(cmd_expr);
        }
         walker++;
     }
