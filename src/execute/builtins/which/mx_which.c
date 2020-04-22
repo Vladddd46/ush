@@ -58,9 +58,9 @@ static void s_flag_resolver(char *flags, int found) {
 void mx_which(char **cmd) {
     if(mx_which_usage_err(cmd))
         return;
-    int arg_index       = 1;
-    char *flags         = mx_which_flags_determine(cmd, &arg_index);
-    int found           = 0;
+    int  arg_index       = 1;
+    char *flags          = mx_which_flags_determine(cmd, &arg_index);
+    int  found           = 0;
     char **pathes;
 
     if (flags == NULL || getenv("PATH") == NULL) 
@@ -74,6 +74,7 @@ void mx_which(char **cmd) {
     }
     s_flag_resolver(flags, found);
     free(flags);
+    mx_arr_freesher(pathes);
 }
 
 
