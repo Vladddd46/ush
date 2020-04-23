@@ -2,9 +2,9 @@
 
 // checks, whether cmd is built_in
 int mx_is_built_in(char *cmd) {
-    char *built_ins[14] = { "export", "unset", "env", 
+    char *built_ins[15] = { "export", "unset", "env", 
                             "pwd", "which", "echo", "fg", 
-                            "exit", "jobs", "cd",NULL};
+                            "exit", "jobs", "cd", "color", NULL};
     int walker = 0;
 
     while(built_ins[walker]) {

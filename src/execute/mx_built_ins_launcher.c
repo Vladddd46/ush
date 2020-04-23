@@ -28,6 +28,8 @@ void mx_built_ins_launcher(char **cmd_expression, t_proc **proc) {
         mx_jobs(proc[0]);
     else if (mx_strcmp(cmd_expression[0], "cd")     == 0)
         mx_cd(cmd_expression);
+    else if (mx_strcmp(cmd_expression[0], "color")  == 0)
+        mx_color(cmd_expression);
     refresh_exit_status(cmd_expression);
 }
 
