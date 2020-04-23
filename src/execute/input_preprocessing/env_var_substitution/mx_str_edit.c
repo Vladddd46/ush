@@ -1,7 +1,6 @@
 #include "ush.h"
-/*
-    * replaces str[indx1:indx2] with value
-*/
+// Replaces str[indx1:indx2] with value
+
 static void incrementer1(int *index, int *indx2) {
     *index += 1;
     *indx2 += 1;

@@ -1,10 +1,10 @@
 #include "ush.h"
 /*
-    * replaces tilda expression with
-      $HOME value.
-    * in case of unset HOME
-      resolution error caused
-*/
+ * Replaces tilda expression with
+ *     $HOME value.
+ * In case of unset HOME
+ *   resolution error caused
+ */
 void mx_home_replace(char **arg_splt) {
     char *home = getenv("HOME");
 

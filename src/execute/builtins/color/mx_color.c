@@ -1,4 +1,5 @@
 #include "ush.h"
+
 // Changes color of terminal
 
 static int too_many_args_color(char **cmd_expression) {

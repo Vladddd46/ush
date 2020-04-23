@@ -1,9 +1,9 @@
 #include "ush.h"
 
 /*
-    * finds index of binary name user specified in cmd.
-    * skips flags and variables setting in cmd.
-*/
+ * Finds index of binary name user specified in cmd.
+ * Skips flags and variables setting in cmd.
+ */
 int mx_binary_index_finder(char **cmd, int start) {
     int walker = start;
 

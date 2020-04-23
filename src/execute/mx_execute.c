@@ -1,10 +1,9 @@
 #include "ush.h"
+
 /*
-    * checks whether cmd is built in or external and
-      executes program.
-*/
-
-
+ * Checks whether cmd is built in or external and
+ * executes program.
+ */
 int mx_execute(char **cmd_expression, t_proc **proc) {
     int status = 1;
     

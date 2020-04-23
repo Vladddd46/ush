@@ -1,12 +1,11 @@
 #include "ush.h"
 
 /*
-    * error which occurs, 
-      when trying to resolve ~
-      but needed env variable is
-      not set.
-
-*/
+ * Error which occurs, 
+ *     when trying to resolve ~
+ *     but needed env variable is
+ *     not set.
+ */
 void mx_resolution_error(char *var_name) {
     char *msg  = "u$h> can`t resolve '~' bacause ";
     char *msg2 = " var is not set\n";

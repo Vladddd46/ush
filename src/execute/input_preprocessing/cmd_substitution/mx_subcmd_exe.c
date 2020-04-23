@@ -1,11 +1,11 @@
 #include "ush.h"
 /*
-    * executes cmd, user specified in expression
-      for expample echo `somecmd`
-      >>> execute somecmd and changing it`s stdout into pipe.
+ * Executes cmd, user specified in expression
+ * for expample echo `somecmd`
+ * >>> execute somecmd and changing it`s stdout into pipe.
 */
 
-// retrieves cmd from expression echo `somecmd` => somecmd
+// Retrieves cmd from expression echo `somecmd` => somecmd
 static char *cmd_retriever(char *expr, int start_indx, int end_indx) {
     char *cmd;
 

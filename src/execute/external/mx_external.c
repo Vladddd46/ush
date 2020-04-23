@@ -1,8 +1,6 @@
 #include "ush.h"
 
-/*
-    * executes functions, which are not built in shell
-*/
+// Executes functions, which are not built in shell
 
 static void free_node(t_proc **node) {
     if (node[0] != NULL) {
@@ -15,12 +13,12 @@ static int exit_status_func(int status, t_proc **proc, char *proc_name) {
     int   exit_status = 1;
     t_proc *node_to_free;
 
-    // if proccess was stopped by ctrl+z
+    // If proccess was stopped by ctrl+z
     if (WIFSTOPPED(status)) {
         exit_status = 0;
         mx_suspended_process_msg(proc_name);
     }
-    // if procces ended sucessfully or stopped by ctrl+c
+    // If procces ended sucessfully or stopped by ctrl+c
     // => deleting proc node from list 
     else if (WIFEXITED(status) || WTERMSIG(status) == 2) {
         if (WTERMSIG(status) == 2)

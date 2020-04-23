@@ -1,12 +1,12 @@
 #include "ush.h"
 
 /*
-    * returns the previous dir.
-    * runs, when user specified ".." as argument
-    * Example: 
-        cwd == /Users/user_name/Desktop
-        prev_dir() = /Users/user_name
-*/
+ * Returns the previous dir.
+ * Runs, when user specified ".." as argument
+ * Example: 
+ *   cwd == /Users/user_name/Desktop
+ *   prev_dir() = /Users/user_name
+ */
 char *mx_prev_dir() {
     char *prev_dir   = NULL;
     char **split     = mx_str_to_arr(getenv("PWD"), '/');

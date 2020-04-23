@@ -1,8 +1,6 @@
 #include "ush.h"
 
-/*
-	reallocates memory for input buffer if it`s needed.
-*/
+// Reallocates memory for input buffer if it`s needed.
 void mx_reallocation(char **input, int *index, int *size) {
     char *free_input;
 

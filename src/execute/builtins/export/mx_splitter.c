@@ -1,15 +1,15 @@
 #include "ush.h"
 
 /*
-    * splits string (arg) in array {NAME,VALUE}
-      splits by equal sign.
-*/
+ * Splits string (arg) in array {NAME,VALUE}
+ * Splits by equal sign.
+ */
 char **mx_splitter(char *arg) {
     char **arr        = mx_new_strarr(2);
     int index_eq_sign = mx_char_index(arg, '=');
 
-    // if no '=' in arg or '=' is last element
-    // case: export a= || export a
+    // If no '=' in arg or '=' is last element
+    // Case: export a= || export a
     if (index_eq_sign == -1) {
         arr[0] = mx_string_copy(arg);
         arr[1] = mx_strnew(1);

@@ -1,12 +1,12 @@
 #include "ush.h"
 /*
-    * updates screen view depenging on user`s input.
-    * if backspace {delet 1 char}
-    * if normal char {print char}
-    * if ctrl+char => handle.
+ * Updates screen view depenging on user`s input.
+ * If backspace {delet 1 char}
+ * If normal char {print char}
+ * If ctrl+char => handle.
 */
 
-// clears line in terminal window.(fills it with spaces ' ')
+// Clears line in terminal window.(fills it with spaces ' ')
 static void line_cleaner(char *input) {
     // + 6 because of "u$h> "
     int free_space = mx_strlen(input) + 6;

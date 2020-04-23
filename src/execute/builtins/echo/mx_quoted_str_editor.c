@@ -1,8 +1,6 @@
 #include "ush.h"
 
-/*
-    * edits echo str depending on flags.
-*/
+// Edits echo str depending on flags.
 
 static char escape_char_determiner(char c) {
     if (c == 'a') 

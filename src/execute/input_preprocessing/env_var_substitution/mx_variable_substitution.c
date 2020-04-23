@@ -1,10 +1,11 @@
 #include "ush.h"
 /*
-    * substitutes variable expression with
-      value from env
-      Example ${USER}/$USER => username
-*/
-// determines, wheather next char should be omitted. 1 omitted.
+ * Substitutes variable expression with
+ *   value from env
+ * Example ${USER}/$USER => username
+ */
+
+// Determines, wheather next char should be omitted. 1 omitted.
 static int is_omitted(int *omit, char c) {
     if (c == '\\' && *omit == 0)
         *omit  = 1;

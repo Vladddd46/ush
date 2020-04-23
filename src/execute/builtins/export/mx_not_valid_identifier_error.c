@@ -1,9 +1,9 @@
 #include "ush.h"
 
 /*
-    * prints error msg if data[0] == '='
-      or data[0] is digit.
-*/
+ * Prints error msg if data[0] == '='
+ * or data[0] is digit.
+ */
 
 void not_valid_identifier_msg(char *str) {
     char *msg1 = "u$h: export: \'";

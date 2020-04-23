@@ -1,16 +1,16 @@
 #include "ush.h"
 
 /*
-    * returns ending index of last element is expression
-      with dollar.
-    * For Example:
-      str = "abc${HOME}abc";
-        dollar_indx = 3
-        end_indx    = 9
-      str = "abc$HOME."
-        dollar_indx = 3
-        end_indx    = 7
-*/
+ * Returns ending index of last element is expression
+ * with dollar.
+ * For Example:
+ *     str = "abc${HOME}abc";
+ *       dollar_indx = 3
+ *       end_indx    = 9
+ *     str = "abc$HOME."
+ *       dollar_indx = 3
+ *       end_indx    = 7
+ */
 int mx_end_index_finder(char *str, int dollar_indx) {
     int end_indx = dollar_indx + 1;
 

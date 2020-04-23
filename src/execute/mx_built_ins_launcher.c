@@ -6,7 +6,7 @@ static void refresh_exit_status(char **cmd_expression) {
         setenv("?", "0", 1);
 }
 
-// launches built-in
+// Launches built-in
 void mx_built_ins_launcher(char **cmd_expression, t_proc **proc) {
     if (mx_strcmp(cmd_expression[0],      "export") == 0)
         mx_export(cmd_expression);

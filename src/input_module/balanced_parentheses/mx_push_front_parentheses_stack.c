@@ -1,14 +1,13 @@
 #include "ush.h"
 
 /*
-    * Creates/Pushes node into t_braces_stack list
-    * it is needed to check whether all parentheses 
-      in user`s input are balanced.
-    * brace - parenthese {",',\,(,{,),}}
-    * index - index of braced in array below. this 
-      array declared in calling func.
-
-*/
+ * Creates/Pushes node into t_braces_stack list
+ * It is needed to check whether all parentheses 
+ * in user`s input are balanced.
+ * brace - parenthese {",',\,(,{,),}}
+ * index - index of braced in array below. this 
+ * array declared in calling func.
+ */
 static t_braces_stack *mx_create_stack_node(char brace, int index) {
     t_braces_stack *node = (t_braces_stack *)malloc(sizeof(t_braces_stack));
 

@@ -1,8 +1,8 @@
 #include "ush.h"
 
 /*  
-    * adds 1 to SHLVL in env. variables.
-    * do nothing if there is no SHLVL arg.
+ * Adds 1 to SHLVL in env. variables.
+ * Do nothing if there is no SHLVL arg.
 */
 void mx_shlvl_adder() {
     char *shlvl = getenv("SHLVL");

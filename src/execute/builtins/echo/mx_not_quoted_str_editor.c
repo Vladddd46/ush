@@ -1,9 +1,9 @@
 #include "ush.h"
 
 /*
-    * removes omitting \ 
-      from the unquoted str
-*/
+ * Removes omitting \ 
+ * from the unquoted str
+ */
 char *mx_not_quoted_str_editor(char *str) {
     char *edited_str = mx_strnew(mx_strlen(str));
     char *result;

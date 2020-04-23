@@ -1,14 +1,13 @@
 #include "ush.h"
 /*
-    * - takes the name of user_inputed command (external_name)
-    * - we already know, that this func. is not built_in.
-    * - retrieves all pathes from env -> $PATH var.
-    * - scans all pathes and tries to find file with external name
-        * - if finds -> return /binary/path/external_name
-        * Example: /bin/usr/ls (ls - external_name)
-        * - else NULL;
-    *** This module has no leaks! *** 
-*/
+ * Takes the name of user_inputed command (external_name)
+ * We already know, that this func. is not built_in.
+ * Retrieves all pathes from env -> $PATH var.
+ * Scans all pathes and tries to find file with external name
+ * If finds -> return /binary/path/external_name
+ * Example: /bin/usr/ls (ls - external_name)
+ * Else NULL;
+ */
 
 static char *search(char **pathes, char *external_name) {
     char *found_path;

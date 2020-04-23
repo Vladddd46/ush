@@ -1,9 +1,8 @@
 #include "ush.h"
-/*
-    * implementation of flag -u in env built-in
-*/
 
-// prints all env variables except var_name
+// Implementation of flag -u in env built-in
+
+// Prints all env variables except var_name
 static void print_env_without_var(char *var_name) {
     int  eq_indx;
     char *env_var_name;

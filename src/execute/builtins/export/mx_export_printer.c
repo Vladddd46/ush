@@ -1,7 +1,6 @@
 #include "ush.h"
 
-extern char **environ;
-// prints all env variables in ascending order
+// Prints all env variables in ascending order
 void mx_export_printer() {
     char **env_copy = mx_arr_copy(environ);
 

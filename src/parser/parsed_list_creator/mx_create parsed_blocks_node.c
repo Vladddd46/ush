@@ -1,9 +1,9 @@
 #include "ush.h"
 /* 
-    * Creates t_parsed_blocks list node
-    * cmd_expr - command user specified
-    * separator = &&/&/|/||/>>/>/<</<
-*/
+ * Creates t_parsed_blocks list node
+ * cmd_expr - command user specified
+ * separator = &&/&/|/||/>>/>/<</<
+ */
 t_parsed_blocks *mx_create_parsed_blocks_node(char **cmd_expr,
                                             char *separator, 
                                             int builtin, int id) {

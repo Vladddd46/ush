@@ -20,6 +20,7 @@ It contains:
       > which [-a -s]
       > echo  [-n -e -E]
       > fg    [%n %str]
+      > color/bgcolor
     - signals handling
       > Ctrl+D
       > Ctrl+Z
@@ -38,9 +39,9 @@ PS. There are some functuons,
 */
 
 /*
-    if user enterned not valid input such as
-        ;;;;;;;;;;;;;
-*/
+ * If user enterned not valid input such as
+ * ;;;;;;;;;;;;;
+ */
 static int input_error(char **arr) {
     if (arr == NULL) {
         if (!isatty(0))
@@ -54,11 +55,11 @@ static int input_error(char **arr) {
 }
 
 /*
-    * returns 1 if:
-        user_input == NULL.
-        parenttheses in user_input are not balanced.
-    * else returns 0
-*/
+ * Returns 1 if:
+ *  user_input == NULL.
+ *  parenttheses in user_input are not balanced.
+ *  else returns 0
+ */
 static int restart_loop(char **user_input) {
     int status = 0;
 
@@ -98,17 +99,17 @@ static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) 
 
 int main() {
     /*
-        proc_list - list of processes, which are suspended by a signal.
-        user_input - string, which represents user`s input.
-        splt_by_semicolon - user`s input splited by ';'.
-    */
+     * proc_list - list of processes, which are suspended by a signal.
+     * user_input - string, which represents user`s input.
+     *splt_by_semicolon - user`s input splited by ';'.
+     */
     t_proc *proc_list          = NULL;
     char   *user_input         = NULL;
     char   **splt_by_semicolon = NULL;
 
     mx_signals_ignore();
     mx_shlvl_adder();
-    // setting variable for exit status.
+    // Setting variable for exit status.
     putenv("?=0"); 
     loop(proc_list, user_input, splt_by_semicolon);
 }

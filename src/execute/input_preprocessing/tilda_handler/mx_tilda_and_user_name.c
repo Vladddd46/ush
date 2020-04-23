@@ -1,9 +1,8 @@
 #include "ush.h"
-/*
-    * case ~username/some_dir
-*/
 
-// checks wheather username exists in system user`s
+// Case ~username/some_dir
+
+// Checks wheather username exists in system user`s
 static int user_exist_checker(char *username) {
     struct passwd *entry;
 

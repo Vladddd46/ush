@@ -1,21 +1,21 @@
 #include "ush.h"
 /*
-    * Implementation of export built-in function
-    * Functional:
-        // prints all enviromental variables.
-        * >>> export
-        // adds new variable with value into env.
-        * >>> export new_var=value
-        // adds new variable with empty (mx_strnew(1)) value.
-          >>> export new_var or export new_var=
-        // error
-        * >>> export =some_text
-*/
+ * Implementation of export built-in function
+ * Functional:
+ *  Prints all enviromental variables.
+ *   * >>> export
+ *   Adds new variable with value into env.
+ *   * >>> export new_var=value
+ *   Adds new variable with empty (mx_strnew(1)) value.
+ *   * >>> export new_var or export new_var=
+ *   Error
+ *   * >>> export =some_text
+ */
 
 /*
-    * walking throuth user`s input and setting specified variables
-    * into env list if there is no error.
-*/
+ * Walking throuth user`s input and setting specified variables
+ * into env list if there is no error.
+ */
 static void exporting_var(char **cmd) {
     char **data;
     char *put;
@@ -37,10 +37,10 @@ static void exporting_var(char **cmd) {
 }
 
 void mx_export(char **cmd) {
-    // prints all env. variables
+    // Prints all env. variables
     if (mx_strarr_size(cmd) == 1)
         mx_export_printer();
-    // export variables
+    // Export variables
     else
         exporting_var(cmd); 
 }

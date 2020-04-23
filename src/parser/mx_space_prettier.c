@@ -1,11 +1,11 @@
 #include "ush.h"
 
 /*
-    * adds spaces ' ' before and after separator symbols
-    * example:
-        >>> "echo 1&&echo 2; pwd"
-        <<< return "echo 1 && echo 2 ; pwd"
-    * PS. this is needed for splitting str by spaces.
+ * Adds spaces ' ' before and after separator symbols
+ * Example:
+ *      >>> "echo 1&&echo 2; pwd"
+ *      <<< return "echo 1 && echo 2 ; pwd"
+ * PS. this is needed for splitting str by spaces.
 */
 static int status_value(int status, char chr) {
     int tmp_status = status;

@@ -1,8 +1,6 @@
 #include "ush.h"
 
-/*
-    Implementation of fg builtin
-*/
+// Implementation of fg builtin
 
 static void renew_suspended_process_by_id(t_proc **proc, int id, char *arg) {
     t_proc *tmp = proc[0];
@@ -16,7 +14,7 @@ static void renew_suspended_process_by_id(t_proc **proc, int id, char *arg) {
         }
         tmp = tmp->next;
     }
-    // process with such <id> was not found in proc list.
+    // Process with such <id> was not found in proc list.
     if (found)
         mx_no_such_job(arg);
 }
@@ -34,7 +32,7 @@ static void renew_suspended_process_by_name(t_proc **proc, char *arg) {
         }
         tmp = tmp->next;
     }
-    // process with such <name> was not found in proc list.
+    // Process with such <name> was not found in proc list.
     if (found)
         mx_no_job_found(arg);
 }
@@ -45,9 +43,9 @@ static void argv_in_proc_list_finder(char *arg, t_proc **proc) {
     if (id == 0 && mx_strcmp(arg, "0") != 0)
         id = -1;
     /* 
-        if id == -1 => searching by job name (str)
-        else searching by id (int)
-    */
+     * If id == -1 => searching by job name (str)
+     * Else searching by id (int)
+     */
     if (id != -1)
         renew_suspended_process_by_id(proc, id, arg);
     else 
@@ -59,15 +57,15 @@ static void fg_with_args(char **cmd_expr, t_proc **proc) {
     int walker = 1;
 
     while(cmd_expr[walker]) {
-        // unvalid argument
+        // Unvalid argument
         if (cmd_expr[walker][0] != '%')
             mx_no_job_found(cmd_expr[walker]);
         else {
             res = mx_str_to_arr(cmd_expr[walker], '%');
-            // if "%%%%%%%%%%%" => pure fg is excecuted
+            // If "%%%%%%%%%%%" => pure fg is excecuted
             if (res[0] == NULL)
                 mx_fg_execute(proc[0]->pid, proc);
-            // finding and excecuting proccess specified by user
+            // Finding and excecuting proccess specified by user
             else
                 argv_in_proc_list_finder(res[0], proc);
             mx_arr_freesher(res);
@@ -77,10 +75,10 @@ static void fg_with_args(char **cmd_expr, t_proc **proc) {
 }
 
 void mx_fg(char **command_expression, t_proc **proc) {
-    // process list is empty
+    // Process list is empty
     if (mx_no_current_job_err(proc[0]))
         return;
-    // fg with no args
+    // Fg with no args
     if (mx_strarr_size(command_expression) == 1) {
         mx_fg_execute(proc[0]->pid, proc);
     }

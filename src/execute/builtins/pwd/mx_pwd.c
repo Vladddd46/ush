@@ -1,6 +1,6 @@
 #include "ush.h"
 
-// returns physical location of link or NULL if name not link
+// Returns physical location of link or NULL if name not link
 static char *is_link(char *name) {
     char *link_name;
     char buff[4026];
@@ -15,7 +15,7 @@ static char *is_link(char *name) {
     return link_name;
 }
 
-// prints physical location of link
+// Prints physical location of link
 static void pwd_with_resolved_link(char *pwd, char *location) {
     char **pwd_arr = mx_str_to_arr(pwd, '/');
 
@@ -25,7 +25,7 @@ static void pwd_with_resolved_link(char *pwd, char *location) {
     mx_arr_freesher(pwd_arr);
 }
 
-// excecutes pwd with flags -L -P
+// Excecutes pwd with flags -L -P
 static void pwd_with_flags(char **cmd_expression) {
     char *link_location;
     char *logic_env = getenv("PWD");

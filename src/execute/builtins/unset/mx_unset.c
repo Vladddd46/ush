@@ -1,10 +1,10 @@
 #include "ush.h"
 /*
-    Implementation of unset built-in function.
-    * deletes specified var from env.
-*/
+ * Implementation of unset built-in function.
+ * Deletes specified var from env.
+ */
 
-// unsets variable
+// Unsets variable
 static void unsetter(char *expr) {
     char *var_name;
     int eq_index = mx_char_index(expr, '=');

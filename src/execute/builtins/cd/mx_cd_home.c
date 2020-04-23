@@ -1,8 +1,7 @@
 #include "ush.h"
 
-/*
-    * changes replaces value of PWD value with HOME value.
-*/
+
+// Changes replaces value of PWD value with HOME value.
 void mx_cd_home(char *oldcwd) {
     char *newcwd = mx_string_copy(getenv("HOME"));
     char *msg;

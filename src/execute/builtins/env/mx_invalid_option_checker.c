@@ -1,10 +1,10 @@
 #include "ush.h"
 
 /* 
-    * checks, wheather user specified correct option 
-        return 1 if False flag
-        return 0 if True  flag
-*/
+ * Checks, wheather user specified correct option 
+ *  return 1 if False flag
+ *  return 0 if True  flag
+ */
 static void error_msg(char *option) {
     char *msg  = "env: illegal option "; 
     char *msg1 = "usage: env [-iv] [-P utilpath] [-S string] [-u name]\n";

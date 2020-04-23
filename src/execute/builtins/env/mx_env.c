@@ -1,7 +1,5 @@
 #include "ush.h"
-/*
-    * Implementation of env built-in
-*/
+// Implementation of env built-in
 
 static void flags_resolver(char **cmd, t_proc **proc) {
     if (mx_strcmp("-u", cmd[1]) == 0) {
@@ -25,10 +23,10 @@ void mx_env(char **cmd, t_proc **proc) {
         mx_print_env();
         return;
     }
-    // checks wheather flag is valid
+    // Checks wheather flag is valid
     if (mx_invalid_option_checker(cmd))
         return;
-    // executes env depending on flags.
+    // Executes env depending on flags.
     flags_resolver(cmd, proc);
 }
 

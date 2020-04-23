@@ -1,10 +1,10 @@
 #include "ush.h"
 /*
-    * returns string of flags user specified in cmd;
-    * otherwise print error msg and return NULL;
-    * also takes arg_index as pointer and increments it
-    * until argument index is found.
-*/
+ * Returns string of flags user specified in cmd;
+ * Otherwise print error msg and return NULL;
+ * Also takes arg_index as pointer and increments it
+ * Until argument index is found.
+ */
 char *mx_which_flags_determine(char **cmd, int *arg_index) {
     char *flags = mx_strnew(2);
     char *msg;

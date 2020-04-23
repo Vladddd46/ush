@@ -1,10 +1,10 @@
 #include "ush.h"
 
 /*
-    * creates new paths.
-    * takes PWD value and adds /new_dir.
-    * if PWD == '/', adds only new_dir.
-*/
+ * Creates new paths.
+ * Takes PWD value and adds /new_dir.
+ * If PWD == '/', adds only new_dir.
+ */
 char *mx_new_cwd_maker(char *new_dir) {
     char *newcwd;
     char *PWD = getenv("PWD");

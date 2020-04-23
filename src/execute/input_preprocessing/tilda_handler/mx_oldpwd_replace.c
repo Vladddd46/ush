@@ -1,10 +1,10 @@
 #include "ush.h"
 /*
-    * replaces tilda expression with
-      $OLDPWD value.
-    * in case of unset OLDPWD
-      resolution error caused
-*/
+ * Replaces tilda expression with
+ * $OLDPWD value.
+ * in case of unset OLDPWD
+ * resolution error caused
+ */
 void mx_oldpwd_replace(char **arg_splt) {
     char *oldpwd = getenv("OLDPWD");
 

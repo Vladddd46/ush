@@ -1,9 +1,5 @@
 #include "ush.h"
 
-/*
-    * [cd help function]
-    * too many args error
-*/
 int mx_too_many_args(char **cmd_exp, char **flag, char **oldcwd) {
     char *msg;
     int status = 0;

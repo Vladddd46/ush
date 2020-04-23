@@ -1,11 +1,10 @@
 #include "ush.h"
 
 /*
-    * make programm ignore signals:
-        ctrl+c
-        ctrl+z 
-*/
-
+ * Make programm ignore signals:
+ *       ctrl+c
+ *       ctrl+z 
+ */
 
 void mx_signals_ignore() {
     signal(SIGTTIN, SIG_IGN);

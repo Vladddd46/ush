@@ -1,11 +1,11 @@
 #include "ush.h"
 
 /*
-    * exit from child process depending on 
-        executing status
-*/
+ * Exit from child process depending on 
+ * executing status
+ */
 void mx_child_exit(int exe_status, char **cmd_expression) {
-    // if error was occured while excecuting
+    // If error was occured while excecuting
     if (exe_status < 0) {
         if (errno == 2) 
             mx_command_not_found_msg(cmd_expression[0]);

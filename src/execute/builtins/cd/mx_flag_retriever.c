@@ -1,11 +1,9 @@
 #include "ush.h"
 
 /*
-    * [cd help funtion]
-    * return flags specified by user.
-    * if no flag specified => NULL is returned. 
-
-*/
+ * Return flags specified by user.
+ * If no flag specified => NULL is returned. 
+ */
 char *mx_flag_retriever(char **cmd_exp) {
     char *flag = NULL;
 

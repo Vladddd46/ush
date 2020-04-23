@@ -1,5 +1,7 @@
 #include "ush.h"
+
 // Changes back ground color of terminal
+
 static int too_many_args_color(char **cmd_expression) {
     char *msg;
     char *syntax = "syntax: bgcolor [yellow/blue/red/green/etc]";
@@ -24,7 +26,7 @@ static char *not_bold(char **cmd_expression) {
 
     if (mx_strcmp(cmd_expression[1], "blue")         == 0)
         color = "\033[0;44m";
-    else if (mx_strcmp(cmd_expression[1], "bworn")  == 0)
+    else if (mx_strcmp(cmd_expression[1], "brown")  == 0)
         color = "\033[0;43m";
     else if (mx_strcmp(cmd_expression[1], "red")     == 0)
         color = "\033[0;41m";
@@ -53,7 +55,7 @@ static void bgcolor_list() {
 void mx_bgcolor(char **cmd_expression) {
     char *color = NULL;
     char *msg   = "bgcolor: no such color\n";
-    char *msg2  = "bgcolor: <color list> to see all colors\n";
+    char *msg2  = "bgcolor: <bgcolor list> to see all colors\n";
 
     if (too_many_args_color(cmd_expression))
         return;

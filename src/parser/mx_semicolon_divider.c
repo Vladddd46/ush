@@ -1,12 +1,12 @@
 #include "ush.h"
 
 /*
-    * Divides expression by semicolon
-        Example: 
-            "echo ";;;;;;;";pwd;ls"
-        Output:
-            {"echo ";;;;;;:"", "pwd", "ls"}
-*/
+ * Divides expression by semicolon
+ *  Example: 
+ *      "echo ";;;;;;;";pwd;ls"
+ *  Output:
+ *       {"echo ";;;;;;:"", "pwd", "ls"}
+ */
 
 
 static int status_value(int status, char chr) {

@@ -1,8 +1,5 @@
 #include "ush.h"
 
-/*
-    * error message
-*/
 void mx_option_requires_an_argument(char *option) {
     char *msg  = "env: option requires an argument -- ";
     char *msg1 = "usage: env [-iv] [-P utilpath] [-S string] [-u name]\n";

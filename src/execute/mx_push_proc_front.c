@@ -1,7 +1,6 @@
 #include "ush.h"
-/*
-    * push process in front of process list
-*/
+
+// Push process in front of process list
 static t_proc *create_node(pid_t pid, char *proc_name, int id) {
     t_proc *node = (t_proc *)malloc(sizeof(t_proc));
     node->id = id;

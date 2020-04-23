@@ -1,8 +1,8 @@
 #include "ush.h"
 
-/*
-    implementation of jobs
-*/
+
+// Implementation of jobs built in.
+
 void mx_jobs(t_proc *proc) {
     t_proc *tmp = proc;
     

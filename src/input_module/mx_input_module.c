@@ -1,11 +1,11 @@
 #include "ush.h"
 /*
-    * user`s input functional
-    * reading from stdout is performing
-      in non-canonical terminal mode.
-*/
+ * User`s input functional
+ * Reading from stdout is performing
+ * in non-canonical terminal mode.
+ */
 
-// cuts buffer(input) into inputed sting size
+// Cuts buffer(input) into inputed sting size
 static char *buff_cutter(char **input, int *index) {
     char *result;
 
@@ -21,13 +21,13 @@ static void sigint_handler() {
 }
 
 /*
-    * does all needed operations, that should be performed
-      after inputing characker by user.
-      a) updates screen
-         - prints new inputed char.
-         - in case of backspace erase  char.
-         - reallocates buffer if it`s size is full.
-*/
+ * Does all needed operations, that should be performed
+ *  after inputing characker by user.
+ *  a) updates screen
+ *        - prints new inputed char.
+ *        - in case of backspace erase  char.
+ *        - reallocates buffer if it`s size is full.
+ */
 static void post_input(char **input, char buff, int *size, int *index) {
     mx_screen_update(input[0], buff);
     if (buff == 127) {

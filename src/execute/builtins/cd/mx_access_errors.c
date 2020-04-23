@@ -1,8 +1,7 @@
 #include "ush.h"
-/*
-    * [cd help function]
-    * access errors handler
-*/
+
+// Access errors handler in cd
+
 int mx_access_errors(char *newcwd) {
     char *msg;
 

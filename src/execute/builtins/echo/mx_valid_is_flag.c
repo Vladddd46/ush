@@ -1,12 +1,12 @@
 #include "ush.h"
 
 /*
-    * returns flag identifier if flag is valid.
-      also flag combinations are considered.
-      id '-n' (and combinations) = 2
-      id '-e' (and combinations) = 1
-      id '-E' (and combinations) = 0
-*/
+ * Returns flag identifier if flag is valid.
+ * Also flag combinations are considered.
+ * id '-n' (and combinations) = 2
+ * id '-e' (and combinations) = 1
+ * id '-E' (and combinations) = 0
+ */
 int mx_valid_is_flag(char *flag) {
     char *n_combinations[12] = {"-n","-ne","-nE", "-En", "-en", "-neE", 
                              "-nEe", "-enE", "-Ene", "-Een", "-eEn", NULL};

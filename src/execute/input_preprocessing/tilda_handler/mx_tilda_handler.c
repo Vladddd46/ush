@@ -1,8 +1,8 @@
 #include "ush.h"
 /*
-    * replaces tilda, where it`s needed
-      in user`s input.
-*/
+ * Replaces tilda, where it`s needed
+ * in user`s input.
+ */
 static void tilda_replacer(char **arg_splt) {
     if (arg_splt[0] == NULL)
         return;

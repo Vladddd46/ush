@@ -1,8 +1,8 @@
 #include "ush.h"
 /*
-    * takes "pretty" expression (f.e "ls && pwd || sleep 10")
-    * returns array of words divided by ' ' (space)
-    * PS. spaces in quotes ("   "/' ') and \(space) are skipped.
+ * Takes "pretty" expression (f.e "ls && pwd || sleep 10")
+ * Returns array of words divided by ' ' (space)
+ * PS. spaces in quotes ("   "/' ') and \(space) are skipped.
 */
 
 // change spaces, which are in quotes <""> or <''> into ASCII 12
@@ -68,10 +68,10 @@ static char *slash_space_change(char *dirty_str) {
 }
 
 /* 
-    changes spaces in quotes and \(space) in ASCII 12,
-    in order to divide by space correctrly.
-    Then restore it back. ASCCII 12 = space.
-*/
+ * changes spaces in quotes and \(space) in ASCII 12,
+ * in order to divide by space correctrly.
+ *Then restore it back. ASCCII 12 = space.
+ */
 static char *dirty_str_maker(char *str) {
     char *dirty_str      = mx_string_copy(str);
     char *spaces_changed;

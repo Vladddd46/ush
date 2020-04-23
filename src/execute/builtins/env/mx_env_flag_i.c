@@ -1,10 +1,10 @@
 #include "ush.h"
 
 /*
-    * Implementation of flag -i in env built-in
-    * ignores env.variables/sets only specified variables 
-    * and executes specified binary(unility).
-*/
+ * Implementation of flag -i in env built-in
+ * Ignores env.variables/sets only specified variables 
+ * and executes specified binary(unility).
+ */
 
 static void specified_vars_unset(char **cmd, int start) {
     char **name_value;

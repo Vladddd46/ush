@@ -1,8 +1,7 @@
 #include "ush.h"
 
-/*
-    Implementation of exit() built in function
-*/
+// Implementation of exit() built in function
+
 void too_many_args_err() {
     char *msg = "exit: too many arguments\n";
     write(2, msg, mx_strlen(msg));

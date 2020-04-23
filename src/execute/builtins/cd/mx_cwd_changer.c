@@ -1,9 +1,7 @@
 #include "ush.h"
 
-/*
-    * [cd help funtion]
-    *  changes cwd.
-*/
+
+// Changes cwd
 void mx_cwd_changer(char *newcwd, char *oldcwd) {
     if (mx_access_errors(newcwd)) {
         free(newcwd);

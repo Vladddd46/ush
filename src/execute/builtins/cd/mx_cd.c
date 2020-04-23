@@ -1,13 +1,13 @@
 #include "ush.h"
-/************************************
-    * Implementation of cd built-in *
-    * flags: -s -P and - argument   *
-*************************************/
+/*
+ * Implementation of cd built-in
+ * Flags: -s -P and - argument
+ */
 
 /*
-    * return link physical location. 
-    * if <name> is not link => NULL is returned
-*/
+ * Return link physical location. 
+ * If <name> is not link => NULL is returned
+ */
 static char *is_link(char *name) {
     char *link_name;
     char *buff      = mx_strnew(4026);

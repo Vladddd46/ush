@@ -1,13 +1,11 @@
 #include "ush.h"
 
-/*
-    * getting user`s input depenting on tty
-*/
+
+// Getting user`s input depenting on tty
 char *mx_getting_input() {
     char *input;
     size_t size;
-    // saving original terminal settings. 
-    // it`s needed for input in non-canonical mode.
+    // Save orig. terminal settings.need for input in ncanonical mode.
     struct termios orig_termios;
     tcgetattr(0, &orig_termios);
 

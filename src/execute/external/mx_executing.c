@@ -1,10 +1,9 @@
 #include "ush.h"
 
 /*
-    * executes cmd_expression[0] binary and returns execute status
-    * if cmd_expression[0] is std binary => external_path == path
-        to it`s binary. otherwise external_path == NULL
-        
+ * Executes cmd_expression[0] binary and returns execute status
+ * If cmd_expression[0] is std binary => external_path == path
+ * to it`s binary. otherwise external_path == NULL      
 */
 int mx_executing(char **cmd_expression, char *path) {
     int exe_status = 0;

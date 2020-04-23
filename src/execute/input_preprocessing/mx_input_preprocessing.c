@@ -8,15 +8,15 @@ static void cmd_to_lowecase(char **cmd_expression) {
 }
 
 void mx_input_preprocessing(char **cmd_expression, t_proc **proc) {
-    // turns cmd name in lower case
+    // Turns cmd name in lower case
     cmd_to_lowecase(cmd_expression);
-    // replaces tilda where it`s needed 
+    // Replaces tilda where it`s needed 
     mx_tilda_handler(cmd_expression);
     // ${variable} $variable replacer 
     mx_variable_substitution(cmd_expression);
-    // command substitution
+    // Command substitution
     mx_cmd_substitution(cmd_expression, proc);
-    // argument preprocessing   
+    // Argument preprocessing   
     mx_arguments_preprocessor(cmd_expression);
 }
 

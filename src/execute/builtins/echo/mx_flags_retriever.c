@@ -1,14 +1,14 @@
 #include "ush.h"
 
 /*
-    * retrieves flags from cmd expression;
-    * returns flags = malloc(3);
-      flags: {'-', '-', '-'}
-      {'-', '-', 'n'} - user specified only -n flag.
-      {'-', 'e', '-'} - user specified only -e flag.
-      {'E', '-', '-'} - user specified only -E flag.
-      {'E', 'e', 'n'} - user specified all flags.
-*/
+ * Retrieves flags from cmd expression;
+ * Returns flags = malloc(3);
+ *     flags: {'-', '-', '-'}
+ *     {'-', '-', 'n'} - user specified only -n flag.
+ *     {'-', 'e', '-'} - user specified only -e flag.
+ *     {'E', '-', '-'} - user specified only -E flag.
+ *     {'E', 'e', 'n'} - user specified all flags.
+ */
 
 char *mx_flags_retriever(char **cmd) {
     int  flag_id;

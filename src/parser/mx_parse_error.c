@@ -1,8 +1,8 @@
 #include "ush.h"
 /*
-    * causes parse error if 
-    no expression is given to separator.
-*/
+ * Causes parse error if 
+ * no expression is given to separator.
+ */
 
 static void msg(void) {
     write(2, "u$h: parse error\n", 17);

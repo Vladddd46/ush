@@ -1,14 +1,14 @@
 #include "ush.h"
 
 /*
-    * Implementation of echo built in
-    * Flags:
-      -n
-      -e
-      -E
-*/
+ * Implementation of echo built in
+ * Flags:
+ *     -n
+ *     -e
+ *     -E
+ */
 
-// prints preproccessed cmd on stdout.
+// Prints preproccessed cmd on stdout.
 static void result_print(char **cmd, int arg_indx2, char *flags) {
     while(cmd[arg_indx2]) {
         write(1, cmd[arg_indx2], mx_strlen(cmd[arg_indx2]));

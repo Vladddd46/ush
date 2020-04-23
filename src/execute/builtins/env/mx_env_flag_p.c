@@ -1,8 +1,7 @@
 #include "ush.h"
 
-/*
-    * Implementation of flag P in env built in
-*/
+// Implementation of flag P in env built in
+
 static void env_printer_wrapper(char **cmd) {
     mx_print_env();
     

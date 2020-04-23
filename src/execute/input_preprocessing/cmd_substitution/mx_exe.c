@@ -1,11 +1,11 @@
 #include "ush.h"
 /*
-    * executes subcmd and writes it into pipe.
-    * reads from pipe and preproccess pipe output.
-    * returns str of output of substr.
-*/
+ * Executes subcmd and writes it into pipe.
+ * Reads from pipe and preproccess pipe output.
+ * Returns str of output of substr.
+ */
 
-// execute subcmd and writing output into pipe
+// Execute subcmd and writing output into pipe
 static void child_proc(int pipefd[2], char **cmd_arr, t_proc **proc) {
     close(pipefd[0]);
     dup2(pipefd[1], 1);
@@ -16,7 +16,7 @@ static void child_proc(int pipefd[2], char **cmd_arr, t_proc **proc) {
     exit(0);
 }
 
-// reallocates mem for reading buffer
+// Reallocates mem for reading buffer
 static void buffer_realloc(char **buffer_string, int *size) {
     char *tmp = mx_str_realloc(buffer_string[0], 1000);
 

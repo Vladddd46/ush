@@ -1,12 +1,12 @@
 #include "ush.h"
 /*
-    * takes str and start/end index of $expression
-      Example: "abc${HOME}...", start_indx = 3, end_indx = 9
-    * returns value associated with $expression.
-      return getenv(HOME);
-      if (getenv(HOME) == NULL)
-        return mx_strnew(1);
-*/
+ * Takes str and start/end index of $expression
+ *     Example: "abc${HOME}...", start_indx = 3, end_indx = 9
+ * Returns value associated with $expression.
+ *     return getenv(HOME);
+ *     if (getenv(HOME) == NULL)
+ *       return mx_strnew(1);
+ */
 
 static char *mem_for_value_allocate(char *dirty_value) {
     char *new_str;

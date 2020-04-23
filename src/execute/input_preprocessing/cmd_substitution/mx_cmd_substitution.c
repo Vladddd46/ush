@@ -1,11 +1,11 @@
 #include "ush.h"
 
 /*
-    * implementation of cmd substitution functinonal
-    $(command) or `command`
-*/
+ * Implementation of cmd substitution functinonal
+ * $(command) or `command`
+ */
 
-// finds ending index of subcmd expression
+// Finds ending index of subcmd expression
 static int end_index_finder(char *expr, int start) {
     int end_index = start;
 

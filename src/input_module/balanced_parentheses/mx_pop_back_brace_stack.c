@@ -1,8 +1,6 @@
 #include "ush.h"
 
-/*
-    * pops node from end of t_braces_stack *list
-*/
+// Pops node from end of t_braces_stack *list
 void mx_pop_back_brace_stack(t_braces_stack **list) {
     if (*list == NULL)
         return;

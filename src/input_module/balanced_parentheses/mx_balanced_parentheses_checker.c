@@ -1,11 +1,11 @@
 #include "ush.h"
 
 /*
-    * checks wheather user`s input 
-      has balanced number of parentheses.
-*/
+ * Checks wheather user`s input 
+ * has balanced number of parentheses.
+ */
 
-// returns the braces_stack->index of last element
+// Returns the braces_stack->index of last element
 static char last_elem_index_in_stack(t_braces_stack *braces_stack) {
     t_braces_stack *tmp;
 
@@ -17,7 +17,7 @@ static char last_elem_index_in_stack(t_braces_stack *braces_stack) {
     return tmp->index;
 }
 
-// checks wheather brace should be omitted ("(" - ( omitted))
+// Checks wheather brace should be omitted ("(" - ( omitted))
 static int brace_should_be_omited(int last_elem_index, int i, char *input) {
     if (last_elem_index == 0 && input[i] != '\\' && input[i] != '\'')
         return 1;
@@ -26,7 +26,7 @@ static int brace_should_be_omited(int last_elem_index, int i, char *input) {
     return 0;
 }
 
-// algorightm, that checks braces balance.
+// Algorightm, that checks braces balance.
 static int alg(char *inp, char *o_brace, char *c_brace, t_braces_stack **stack) {
     int last_elem_index;
     int op_index;
