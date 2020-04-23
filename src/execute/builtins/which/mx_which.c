@@ -1,7 +1,8 @@
 #include "ush.h"
+
 /*
-    * implementation of which built in
-*/
+ * Implementation of which built in
+ */
 
 static void was_found_actions(char *flags, char *path, 
                               char *bin_name, int *found) {
@@ -40,7 +41,7 @@ static void is_builtin(char *name, int *found, char *flags) {
     if (mx_str_in_arr_index(builtins, name) != -1) {
         *found = 1;
         if (mx_is_in_arr(flags, 's') != 1)
-            printf("%s: shell built-in command.\n", name);
+            printf("%s: shell built-in command\n", name);
     }
 }
 
