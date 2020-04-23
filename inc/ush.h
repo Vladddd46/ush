@@ -191,6 +191,7 @@ int  mx_error_not_enough_args(char **cmd_expr);
 void mx_no_such_var_msg(char *name);
 // color 
 void mx_color(char **cmd_expression);
+void mx_bgcolor(char **cmd_expression);
 /* ------------- */
 
 /* LIBMX */
