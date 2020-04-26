@@ -133,13 +133,12 @@ char *mx_which_flags_determine(char **cmd, int *arg_index);
 void mx_which(char **cmd);
 // |echo|
 void mx_echo(char **cmd);
-int  mx_is_quoted(char *str);
+char *mx_arg_edit(char *old_arg, char *flags);
+char mx_escape_char_determiner(char c);
+void mx_edit_with_resolve_esc_ch(char *old_arg, char **edited_str, int *i, int *index);
 int  mx_valid_is_flag(char *flag);
 char *mx_flags_retriever(char **cmd);
 int  mx_flags_end_index(char **cmd);
-char *mx_not_quoted_str_editor(char *str);
-char *mx_quoted_str_editor(char *str, char *flags);
-void mx_edit_str_flag_e(char *str, char *edited_str);
 // |pwd|
 void mx_pwd(char **cmd_expression);
 void mx_pwd_too_many_args();

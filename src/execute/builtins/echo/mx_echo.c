@@ -27,10 +27,7 @@ void mx_echo(char **cmd) {
     char *edited_str;
 
     while(cmd[arg_indx]) {
-        if (mx_is_quoted(cmd[arg_indx])) 
-            edited_str = mx_quoted_str_editor(cmd[arg_indx], flags);
-        else 
-            edited_str = mx_not_quoted_str_editor(cmd[arg_indx]);
+        edited_str = mx_arg_edit(cmd[arg_indx], flags);
         free(cmd[arg_indx]);
         cmd[arg_indx] = edited_str;
         arg_indx++;
