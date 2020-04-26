@@ -16,7 +16,7 @@ static int len_counter(int number) {
 
 char *mx_itoa(int number) {
     if(number == 0)
-        return "0";
+        return mx_string_copy("0");
     char *result = mx_strnew(100);
     int len = len_counter(number);
 
