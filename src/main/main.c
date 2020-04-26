@@ -94,6 +94,7 @@ static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) 
         mx_arr_freesher(splt_by_semicolon);
         if (!isatty(0))
             exit(0);
+        system("leaks -q ush");
     }
 }
 
