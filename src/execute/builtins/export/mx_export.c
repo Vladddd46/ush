@@ -19,7 +19,7 @@
 static void exporting_var(char **cmd) {
     char **data;
     char *put;
-    int walker = 1;
+    int  walker = 1;
 
     while(cmd[walker]) {
         data = mx_splitter(cmd[walker]);
@@ -29,7 +29,7 @@ static void exporting_var(char **cmd) {
                 putenv(put);
             }
             else
-                setenv(data[0], data[1], 1);
+                setenv(mx_string_copy(data[0]), mx_string_copy(data[1]), 1);
         }
         walker++;
         mx_arr_freesher(data);
