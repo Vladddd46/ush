@@ -5,7 +5,7 @@
  * PS. spaces in quotes ("   "/' ') and \(space) are skipped.
 */
 
-// change spaces, which are in quotes <""> or <''> into ASCII 12
+// Change spaces, which are in quotes <""> or <''> into ASCII 12
 static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
     if (str[0][*index] == '\"') {
         *index += 1;
@@ -25,7 +25,7 @@ static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
     }
 }
 
-// change spaces, which are in <()> or <``> into ASCII 12 
+// Change spaces, which are in <()> or <``> into ASCII 12 
 static void spaces_in_braces(char **str, char **dirty_str, int *index) {
     if (str[0][*index] == '(') {
         *index += 1;
@@ -45,7 +45,7 @@ static void spaces_in_braces(char **str, char **dirty_str, int *index) {
     }
 }
 
-// change slash+space into ASCII 12
+// Change slash+space into ASCII 12
 static char *slash_space_change(char *dirty_str) {
     char *str_with_handled_slash_space;
     char *tmp = mx_strnew(mx_strlen(dirty_str));
@@ -68,9 +68,9 @@ static char *slash_space_change(char *dirty_str) {
 }
 
 /* 
- * changes spaces in quotes and \(space) in ASCII 12,
+ * Changes spaces in quotes and \(space) in ASCII 12,
  * in order to divide by space correctrly.
- *Then restore it back. ASCCII 12 = space.
+ * Then restore it back. ASCCII 12 = space.
  */
 static char *dirty_str_maker(char *str) {
     char *dirty_str      = mx_string_copy(str);

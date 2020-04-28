@@ -30,6 +30,14 @@ static int exit_status_func(int status, t_proc **proc, char *proc_name) {
     return exit_status;
 }
 
+static void child(int *exe_status, char **cmd_expression, char *path) {
+    mx_signals_restore();
+    setpgid(getpid(), getpid());
+    mx_controlling_terminal_change(getpid());
+    *exe_status = mx_executing(cmd_expression, path);
+    mx_child_exit(*exe_status, cmd_expression);
+}
+
 int mx_external(char **cmd_expression, t_proc **proc, char *path) {
     int   exit_status = 1;
     int   status;
@@ -39,13 +47,8 @@ int mx_external(char **cmd_expression, t_proc **proc, char *path) {
 
     if (proccess != 0)
         mx_push_proc_front(&proc[0], proccess, cmd_expression[0]);
-    if (proccess == 0) {
-        mx_signals_restore();
-        setpgid(getpid(), getpid());
-        mx_controlling_terminal_change(getpid());
-        exe_status = mx_executing(cmd_expression, path);
-        mx_child_exit(exe_status, cmd_expression);
-    }
+    if (proccess == 0)
+        child(&exe_status, cmd_expression, path);
     else {
         waitpid(proccess, &status, WUNTRACED);
         char *status_itoa = mx_itoa(status);

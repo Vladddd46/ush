@@ -74,7 +74,7 @@ int mx_balanced_parentheses_checker(char *input) {
         return 1;
     if (status != 1)
         matching_error(close_braces[status]);
-    // freeing stack and writing error message.
+    // Freeing stack and writing error message.
     t_braces_stack *del;
     t_braces_stack *tmp = braces_stack;
     while (tmp) {

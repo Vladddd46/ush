@@ -18,7 +18,7 @@ t_parsed_blocks *mx_expression_parse(char *expression) {
         return NULL; 
     }
     /*
-     * creates list of secified by user commands.
+     * Creates list of secified by user commands.
      * Node:
      *       command;
      *       separator;

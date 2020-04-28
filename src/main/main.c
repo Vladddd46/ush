@@ -88,7 +88,7 @@ static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) 
         free(user_input);
         if (input_error(splt_by_semicolon))
             continue;
-        // processing each cmd from splt_by_semicolon
+        // Processing each cmd from splt_by_semicolon
         for (int i = 0; splt_by_semicolon[i]; ++i)
             mx_main2(splt_by_semicolon[i], &proc_list);
         mx_arr_freesher(splt_by_semicolon);
@@ -101,7 +101,7 @@ int main() {
     /*
      * proc_list - list of processes, which are suspended by a signal.
      * user_input - string, which represents user`s input.
-     *splt_by_semicolon - user`s input splited by ';'.
+     * splt_by_semicolon - user`s input splited by ';'.
      */
     t_proc *proc_list          = NULL;
     char   *user_input         = NULL;
