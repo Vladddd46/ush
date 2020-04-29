@@ -141,7 +141,6 @@ char *mx_flags_retriever(char **cmd);
 int  mx_flags_end_index(char **cmd);
 // |pwd|
 void mx_pwd(char **cmd_expression);
-void mx_pwd_too_many_args();
 void mx_bad_option(char *option);
 // |cd|
 void mx_cd(char **cmd_exp);
@@ -242,6 +241,9 @@ void   mx_suspended_process_msg(char *str);
 void   mx_command_not_found_msg(char *cmd_name);
 void   mx_controlling_terminal_change(pid_t proc_id);
 /* ------------- */
+
+/* ERRORS */
+void mx_too_many_arguments_error(char *builtin_name);
 
 
 

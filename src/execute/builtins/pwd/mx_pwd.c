@@ -49,7 +49,7 @@ static void pwd_not_set_err() {
 
 void mx_pwd(char **cmd_expression) {
     if (mx_strarr_size(cmd_expression) > 2)
-        mx_pwd_too_many_args();
+        mx_too_many_arguments_error("pwd");
     else if (getenv("PWD") == NULL) {
         pwd_not_set_err();
         return;
