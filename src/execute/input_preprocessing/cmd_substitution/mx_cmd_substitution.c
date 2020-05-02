@@ -29,7 +29,7 @@ static int condition(char **cmd, int i, int j) {
     return 0;
 }
 
-void mx_cmd_substitution(char **cmd, t_proc **proc) {
+void mx_cmd_substitution(char **cmd, t_proc **proc, t_local_env **local_env) {
     char *res_of_cmd_exe;
     char *new_value;
     int end_index;
@@ -40,7 +40,7 @@ void mx_cmd_substitution(char **cmd, t_proc **proc) {
         while(cmd[i][j]) {
             if (condition(cmd, i, j)  || (cmd[i][j] == '$' && cmd[i][j + 1] == '(')) {
                 end_index      = end_index_finder(cmd[i], j);
-                res_of_cmd_exe = mx_subcmd_exe(cmd[i], j, end_index, proc);
+                res_of_cmd_exe = mx_subcmd_exe(cmd[i], j, end_index, proc, local_env);
                 new_value      = mx_str_edit(cmd[i], res_of_cmd_exe, j, end_index);
                 free(cmd[i]);
                 free(res_of_cmd_exe);

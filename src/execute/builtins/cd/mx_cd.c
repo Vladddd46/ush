@@ -1,7 +1,8 @@
 #include "ush.h"
 /*
  * Implementation of cd built-in
- * Flags: -s -P and - argument
+ * Flags: -s -P
+ * - argument is also maintable.
  */
 
 /*
@@ -10,7 +11,7 @@
  */
 static char *is_link(char *name) {
     char *link_name;
-    char *buff      = mx_strnew(4026);
+    char buff[4026];
     int  buff_size  = readlink(name, buff, 4026);
     int  i          = 0;
     int  buff_index = 0;
@@ -29,64 +30,74 @@ static char *is_link(char *name) {
     return link_name;
 }
 
-static char *getting_oldcwd() {
-    char *oldcwd = getenv("OLDPWD");
-    char *res;
-    char *msg;
-
-    if (oldcwd == NULL) {
-        msg = "cd: OLDPWD variable is not set\n";
-        write(2, msg, mx_strlen(msg));
-        return NULL;
+static int is_too_many_arguments(char **cmd_exp, int newcwd_index) {
+    if (cmd_exp[newcwd_index + 1] != NULL && newcwd_index != 0) {
+        mx_too_many_arguments_error("cd");
+        return 1;
     }
-    res = mx_string_copy(oldcwd);
-    return res;
+    return 0;
 }
 
-static void preprocessing(char *arg, char *flag, char *oldcwd) {
-    char *newcwd;
-    char *link = is_link(arg);
+/*
+ * Returns pointer to wd, user specified.
+ * If "cd [flags] -", path = OLDPWD
+ * If "cd", path = HOME
+ * If absolute path, returns copy of argument.
+ * If relative path, joins cwd + / + user`s_input_argument and
+ * returns it.
+ */
+static char *wd_from_user_preprocess(char **cmd_exp, int wd_from_user_indx, 
+                                    t_local_env **local_env, char *cwd) {
+    char *path;
 
-    if (flag == NULL)
-        flag = "-";
-    if (mx_strcmp(arg, "..") == 0)
-        newcwd = mx_prev_dir();
-    else if (link != NULL && mx_strcmp(flag, "-s") == 0) {
-        mx_flag_s_link_error(arg);
-        return;
-    }
-    else if (link != NULL && mx_strcmp(flag, "-P") == 0)
-        newcwd = mx_new_cwd_maker(link);
-    else if (link != NULL && mx_strcmp(flag, "-") == 0)
-        newcwd = mx_new_cwd_maker(arg);
-    else if (link == NULL && mx_strcmp(arg, "-") == 0)
-        newcwd = getting_oldcwd();
-    else
-        newcwd = mx_new_cwd_maker(arg);
-    mx_cwd_changer(newcwd, oldcwd);
-    free(link);
-}
-
-void mx_cd(char **cmd_exp) {
-    if (mx_pwd_var_error())
-        return;
-    char *flag = mx_flag_retriever(cmd_exp);
-    char *oldcwd = mx_string_copy(getenv("PWD"));
-
-    if (mx_too_many_args(cmd_exp, &flag, &oldcwd))
-        return;
-    // cd with no args (/Users/<username>)
-    if (mx_strarr_size(cmd_exp) == 1 
-        || (mx_strarr_size(cmd_exp) == 2 && flag != NULL))
-        mx_cd_home(oldcwd);
+    if (strcmp(cmd_exp[wd_from_user_indx], "-") == 0)
+        path = mx_string_copy(mx_get_var_value(local_env, "OLDPWD"));
+    else if (wd_from_user_indx == 0)
+        path = mx_string_copy(getpwuid(getuid())->pw_dir);
     else {
-        if (flag == NULL)
-            preprocessing(cmd_exp[1], flag, oldcwd);
-        else if (mx_strarr_size(cmd_exp) == 3)
-            preprocessing(cmd_exp[2], flag, oldcwd);
+        if (cmd_exp[wd_from_user_indx][0] == '/')
+            path = mx_string_copy(cmd_exp[wd_from_user_indx]);
+        else
+            path = mx_three_join(cwd, "/", cmd_exp[wd_from_user_indx]);
     }
-    free(flag);
-    return;
+    return path;
+}
+
+
+static void flag_resolver(t_local_env **local_env, char *new_cwd, 
+                            char *old_cwd, char flag) {
+    char real_path[4026];
+    char *link_name = is_link(new_cwd);
+
+    if (flag == 's' && link_name != NULL)
+        mx_flag_s_link_error(new_cwd);
+    else if (flag == 'P') {
+        realpath(new_cwd, real_path);
+        mx_cwd_changer(local_env, mx_string_copy(real_path), old_cwd);
+    }
+    else {
+        mx_cwd_changer(local_env, new_cwd, old_cwd);
+    }
+    free(link_name);
+}
+
+
+void mx_cd(char **cmd_exp, t_local_env **local_env) {
+    char flag              = mx_cd_flag_retriever(cmd_exp);
+    int  wd_from_user_indx = mx_wd_from_user_indx(cmd_exp);
+    char *cwd              = mx_string_copy(mx_get_var_value(local_env, "PWD"));
+    char *wd_from_user     = wd_from_user_preprocess(cmd_exp, wd_from_user_indx,
+                                                    local_env, cwd);
+
+    if (is_too_many_arguments(cmd_exp, wd_from_user_indx)){
+        // do_nothing
+    }
+    else if (mx_access_errors(wd_from_user)) {
+        // do_nothing
+    }
+    else
+        flag_resolver(local_env, wd_from_user, cwd, flag);
+    mx_free_strs(2, cwd, wd_from_user);
 }
 
 

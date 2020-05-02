@@ -79,7 +79,8 @@ static int restart_loop(char **user_input) {
     return 0;
 }
 
-static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) {
+static void loop(t_proc *proc_list, char *user_input, 
+                char **splt_by_semicolon, t_local_env **local_env) {
     while (1) {
         user_input = mx_getting_input();
         if (restart_loop(&user_input))
@@ -90,11 +91,23 @@ static void loop(t_proc *proc_list, char *user_input, char **splt_by_semicolon) 
             continue;
         // Processing each cmd from splt_by_semicolon
         for (int i = 0; splt_by_semicolon[i]; ++i)
-            mx_main2(splt_by_semicolon[i], &proc_list);
+            mx_main2(splt_by_semicolon[i], &proc_list, local_env);
         mx_arr_freesher(splt_by_semicolon);
         if (!isatty(0))
             exit(0);
     }
+}
+
+static void local_env_init(t_local_env **local_env) {
+  char pwd[4026];
+
+  getcwd(pwd, 4026);
+  mx_push_front_local_env(local_env, mx_string_copy("PWD"), 
+                          mx_string_copy(pwd), NULL);
+  mx_push_front_local_env(local_env, mx_string_copy("OLDPWD"), 
+                          mx_string_copy(pwd), NULL);
+  mx_push_front_local_env(local_env, mx_string_copy("?"), 
+                          mx_string_copy("0"), NULL);
 }
 
 int main() {
@@ -103,15 +116,17 @@ int main() {
      * user_input - string, which represents user`s input.
      * splt_by_semicolon - user`s input splited by ';'.
      */
-    t_proc *proc_list          = NULL;
-    char   *user_input         = NULL;
-    char   **splt_by_semicolon = NULL;
+    t_proc      *proc_list          = NULL;
+    char        *user_input         = NULL;
+    char        **splt_by_semicolon = NULL;
+    t_local_env *local_env          = NULL;
 
+    local_env_init(&local_env);
     mx_signals_ignore();
     mx_shlvl_adder();
     // Setting variable for exit status.
     putenv("?=0"); 
-    loop(proc_list, user_input, splt_by_semicolon);
+    loop(proc_list, user_input, splt_by_semicolon, &local_env);
 }
 
 

@@ -13,15 +13,15 @@ static void free_list(t_parsed_blocks **list) {
     }
 }
 
-void mx_main2(char *cmd, t_proc **proc_list) {
+void mx_main2(char *cmd, t_proc **proc_list, t_local_env **local_env) {
     t_parsed_blocks *list = mx_expression_parse(cmd);
     t_parsed_blocks *tmp  = list;
     int            status = 1;
     
     // This loop is needed to implement && and ||
     while(tmp) {
-        mx_input_preprocessing(tmp->cmd_expr, proc_list);
-        status = mx_execute(tmp->cmd_expr, &proc_list[0]);
+        mx_input_preprocessing(tmp->cmd_expr, proc_list, local_env);
+        status = mx_execute(tmp->cmd_expr, &proc_list[0], local_env);
         if (status == 1) {
             while(tmp) {
                 if(tmp->separator) {

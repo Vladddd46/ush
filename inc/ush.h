@@ -25,6 +25,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <setjmp.h>
+#include <stdarg.h>
 /* ------------- */
 
 extern char **environ;
@@ -60,8 +61,19 @@ typedef struct s_braces_stack {
 } t_braces_stack;
 /* ------------- */
 
+// local enviroment
+typedef struct s_local_env {
+    char *var_name;
+    char *var_value;
+    // just in case
+    char **other_data;
+
+    struct s_local_env *next;
+} t_local_env;
+/* ------------- */
+
 /* MAIN */
-void  mx_main2(char *cmd, t_proc **proc_list);
+void mx_main2(char *cmd, t_proc **proc_list, t_local_env **local_env);
 void  mx_shlvl_adder();
 char  *mx_getting_input();
 
@@ -79,7 +91,7 @@ void mx_pop_back_brace_stack(t_braces_stack **list);
 /* ------------- */
 
 /* INPUT PREPROCESSER */
-void mx_input_preprocessing(char **cmd_expression, t_proc **proc);
+void mx_input_preprocessing(char **cmd_expression, t_proc **proc, t_local_env **local_env);
 void mx_arguments_preprocessor(char **cmd);
 // tilda
 void mx_tilda_handler(char **cmd);
@@ -94,10 +106,10 @@ int  mx_end_index_finder(char *str, int dollar_indx);
 char *mx_env_value_get(char *str, int start_indx, int end_indx);
 char *mx_str_edit(char *str, char *value, int indx1, int indx2);
 // command substitution
-void mx_cmd_substitution(char **cmd, t_proc **proc);
-char *mx_exe(char **cmd_arr, t_proc **proc);
+void mx_cmd_substitution(char **cmd, t_proc **proc, t_local_env **local_env);
+char *mx_exe(char **cmd_arr, t_proc **proc, t_local_env **local_env);
 char *mx_subcmd_exe(char *expr, int start_indx, 
-                    int end_indx, t_proc **proc);
+                    int end_indx, t_proc **proc, t_local_env **local_env);
 /* ------------- */
 
 /* PARSING MODULE */
@@ -118,8 +130,8 @@ void            mx_prs_blocks_push_back(t_parsed_blocks **list,
 /* ------------- */
 
 /* EXECUTE MODULE */
-int  mx_execute(char **cmd_expression,  t_proc **proc);
-void mx_built_ins_launcher(char **cmd_expression, t_proc **proc);
+int mx_execute(char **cmd_expression, t_proc **proc, t_local_env **local_env);
+void mx_built_ins_launcher(char **cmd_expression, t_proc **proc, t_local_env **local_env);
 int  mx_is_built_in(char *cmd);
 int  mx_external(char **cmd_expression, t_proc **proc, char *path);
 int  mx_executing(char **cmd_expression, char *path);
@@ -140,19 +152,15 @@ int  mx_valid_is_flag(char *flag);
 char *mx_flags_retriever(char **cmd);
 int  mx_flags_end_index(char **cmd);
 // |pwd|
-void mx_pwd(char **cmd_expression);
-void mx_bad_option(char *option);
+void mx_pwd(char **cmd_expression, t_local_env **local_env);
+int  mx_pwd_flag_determine(char **cmd_expression, char *flag);
 // |cd|
-void mx_cd(char **cmd_exp);
-void mx_cd_home(char *oldcwd);
-char *mx_new_cwd_maker(char *new_dir);
-char *mx_prev_dir();
-int  mx_too_many_args(char **cmd_exp, char **flag, char **oldcwd);
+void mx_cd(char **cmd_exp, t_local_env **local_env);
+void mx_cwd_changer(t_local_env **local_env, char *new_cwd, char *old_cwd);
+char mx_cd_flag_retriever(char **cmd_exp);
+int  mx_wd_from_user_indx(char **cmd_exp);
 int  mx_access_errors(char *newcwd);
-char *mx_flag_retriever(char **cmd_exp);
-void mx_cwd_changer(char *newcwd, char *oldcwd);
 void mx_flag_s_link_error(char *arg);
-int  mx_pwd_var_error();
 // |jobs|
 void mx_jobs(t_proc *proc);
 // |exit|
@@ -240,11 +248,20 @@ void   mx_signals_ignore();
 void   mx_suspended_process_msg(char *str);
 void   mx_command_not_found_msg(char *cmd_name);
 void   mx_controlling_terminal_change(pid_t proc_id);
+// lib
+void mx_free_strs(int num, ...);
+/* ------------- */
+
+/* LOCAL ENVIROMENT */
+void mx_push_front_local_env(t_local_env **list, char *var_name, char *var_value, char **other_data);
+char *mx_get_var_value(t_local_env **list, char *var_name);
+void mx_local_var_value_resetter(t_local_env **local_env, char *var_name, char *new_value);
 /* ------------- */
 
 /* ERRORS */
 void mx_too_many_arguments_error(char *builtin_name);
-
+void mx_bad_option(char *option, char *builtin_name);
+/* ------------- */
 
 
 

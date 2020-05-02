@@ -29,13 +29,13 @@ static char **cmd_to_arr(char *expr, int start_indx, int end_indx) {
 }
 
 char *mx_subcmd_exe(char *expr, int start_indx, 
-                    int end_indx, t_proc **proc) {
+                    int end_indx, t_proc **proc, t_local_env **local_env) {
     char **cmd_arr = cmd_to_arr(expr, start_indx, end_indx);
     char *result;
 
     if (cmd_arr == NULL)
         return mx_strnew(1);
-    result = mx_exe(cmd_arr, proc);
+    result = mx_exe(cmd_arr, proc, local_env);
     return mx_string_copy(result);
 }
 

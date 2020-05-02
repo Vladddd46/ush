@@ -25,6 +25,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <setjmp.h>
+#include <stdarg.h>
 
 char *mx_file_to_str(const char *file);
 char *mx_strtrim(const char *str);

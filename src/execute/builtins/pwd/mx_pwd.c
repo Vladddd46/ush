@@ -1,5 +1,12 @@
 #include "ush.h"
 
+/*
+ * Implementation of pwd builtin
+ * flags: -L -P
+ * L - logical path of cwd.
+ * P - physical path of cwd.
+ */
+
 // Returns physical location of link or NULL if name not link
 static char *is_link(char *name) {
     char *link_name;
@@ -26,41 +33,25 @@ static void pwd_with_resolved_link(char *pwd, char *location) {
 }
 
 // Excecutes pwd with flags -L -P
-static void pwd_with_flags(char **cmd_expression) {
-    char *link_location;
-    char *logic_env = getenv("PWD");
+static void flag_p(char *pwd) {
+    char *link_location = is_link(pwd);
 
-    if (mx_strcmp(cmd_expression[1], "-L")      == 0)
-        printf("%s\n", logic_env);
-    else if (mx_strcmp(cmd_expression[1], "-P") == 0){
-        link_location = is_link(logic_env);
-        if (link_location != NULL)
-            pwd_with_resolved_link(logic_env, link_location);
-        else
-            printf("%s\n", logic_env);
-    }
+    if (link_location != NULL)
+        pwd_with_resolved_link(pwd, link_location);
+    else
+        printf("%s\n", pwd);
 }
 
-static void pwd_not_set_err() {
-    char *msg = "pwd: enviroment variable PWD is not set\n";
 
-    write(2, msg, mx_strlen(msg));
-}
+void mx_pwd(char **cmd_expression, t_local_env **local_env) {
+    char *pwd = mx_get_var_value(local_env, "PWD");
+    char flag = '\0';
 
-void mx_pwd(char **cmd_expression) {
-    if (mx_strarr_size(cmd_expression) > 2)
-        mx_too_many_arguments_error("pwd");
-    else if (getenv("PWD") == NULL) {
-        pwd_not_set_err();
+    if (mx_pwd_flag_determine(cmd_expression, &flag))
         return;
-    }
-    else if (mx_strarr_size(cmd_expression) == 1)
-        printf("%s\n", getenv("PWD"));
-    else if (mx_strarr_size(cmd_expression) == 2) {
-        if (mx_strcmp(cmd_expression[1], "-L")    == 0 
-            || mx_strcmp(cmd_expression[1], "-P") == 0)
-            pwd_with_flags(cmd_expression);
-        else
-            mx_bad_option(cmd_expression[1]);
-    }
+    
+    if (flag == '.' || flag == 'L')
+        printf("%s\n", pwd);
+    else if (flag == 'P')
+        flag_p(pwd);
 }

@@ -1,21 +1,19 @@
 #include "ush.h"
 
+/*
+ * Changes cwd and refreshes all values 
+ * in local enviroment and in enviroment 
+ * if PWD or OLDPWD var exists
+ */
+void mx_cwd_changer(t_local_env **local_env, char *new_cwd, char *old_cwd) {
+    mx_local_var_value_resetter(local_env, "PWD", mx_string_copy(new_cwd));
+    mx_local_var_value_resetter(local_env, "OLDPWD", mx_string_copy(old_cwd));
 
-// Changes cwd
-void mx_cwd_changer(char *newcwd, char *oldcwd) {
-    if (mx_access_errors(newcwd)) {
-        free(newcwd);
-        free(oldcwd);
-        return;
-    }
-    else if (oldcwd == NULL) {
-        free(newcwd);
-        return;
-    }
-    setenv("PWD", newcwd, 1);
-    setenv("OLDPWD", oldcwd, 1);
-    chdir(newcwd);
+    if (getenv("PWD") != NULL)
+        setenv("PWD", new_cwd, 1);
+    if (getenv("OLDPWD") != NULL)
+        setenv("OLDPWD", old_cwd, 1);
+    chdir(new_cwd);
 }
-
 
 

@@ -7,7 +7,9 @@ static void refresh_exit_status(char **cmd_expression) {
 }
 
 // Launches built-in
-void mx_built_ins_launcher(char **cmd_expression, t_proc **proc) {
+void mx_built_ins_launcher(char **cmd_expression, t_proc **proc, 
+                            t_local_env **local_env) {
+
     if (mx_strcmp(cmd_expression[0],      "export") == 0)
         mx_export(cmd_expression);
     else if (mx_strcmp(cmd_expression[0], "unset")  == 0)
@@ -15,7 +17,7 @@ void mx_built_ins_launcher(char **cmd_expression, t_proc **proc) {
     else if (mx_strcmp(cmd_expression[0], "env") == 0)
         mx_env(cmd_expression, proc);
     else if (mx_strcmp(cmd_expression[0], "pwd") == 0) 
-        mx_pwd(cmd_expression);
+        mx_pwd(cmd_expression, local_env);
     else if (mx_strcmp(cmd_expression[0], "which") == 0)
         mx_which(cmd_expression);
     else if (mx_strcmp(cmd_expression[0], "echo") == 0)
@@ -27,7 +29,7 @@ void mx_built_ins_launcher(char **cmd_expression, t_proc **proc) {
     else if (mx_strcmp(cmd_expression[0], "jobs") == 0)
         mx_jobs(proc[0]);
     else if (mx_strcmp(cmd_expression[0], "cd") == 0)
-        mx_cd(cmd_expression);
+        mx_cd(cmd_expression, local_env);
     else if (mx_strcmp(cmd_expression[0], "color") == 0)
         mx_color(cmd_expression);
     else if (mx_strcmp(cmd_expression[0], "bgcolor") == 0)
