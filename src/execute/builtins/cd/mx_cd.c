@@ -57,8 +57,12 @@ static char *wd_from_user_preprocess(char **cmd_exp, int wd_from_user_indx,
     else {
         if (cmd_exp[wd_from_user_indx][0] == '/')
             path = mx_string_copy(cmd_exp[wd_from_user_indx]);
-        else
-            path = mx_three_join(cwd, "/", cmd_exp[wd_from_user_indx]);
+        else {
+            if (strcmp(cwd, "/") != 0)
+                path = mx_three_join(cwd, "/", cmd_exp[wd_from_user_indx]);
+            else 
+                path = mx_strjoin(cwd, cmd_exp[wd_from_user_indx]);
+        }
     }
     return path;
 }
@@ -68,6 +72,7 @@ static void flag_resolver(t_local_env **local_env, char *new_cwd,
                             char *old_cwd, char flag) {
     char real_path[4026];
     char *link_name = is_link(new_cwd);
+    char *resolved;
 
     if (flag == 's' && link_name != NULL)
         mx_flag_s_link_error(new_cwd);
@@ -76,7 +81,10 @@ static void flag_resolver(t_local_env **local_env, char *new_cwd,
         mx_cwd_changer(local_env, mx_string_copy(real_path), old_cwd);
     }
     else {
-        mx_cwd_changer(local_env, new_cwd, old_cwd);
+        // CD do not resolve links, only dots.
+        resolved = mx_dot_resolver(new_cwd);
+        mx_cwd_changer(local_env, resolved, old_cwd);
+        free(resolved);
     }
     free(link_name);
 }
@@ -88,7 +96,6 @@ void mx_cd(char **cmd_exp, t_local_env **local_env) {
     char *cwd              = mx_string_copy(mx_get_var_value(local_env, "PWD"));
     char *wd_from_user     = wd_from_user_preprocess(cmd_exp, wd_from_user_indx,
                                                     local_env, cwd);
-
     if (is_too_many_arguments(cmd_exp, wd_from_user_indx)){
         // do_nothing
     }

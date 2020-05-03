@@ -161,6 +161,8 @@ char mx_cd_flag_retriever(char **cmd_exp);
 int  mx_wd_from_user_indx(char **cmd_exp);
 int  mx_access_errors(char *newcwd);
 void mx_flag_s_link_error(char *arg);
+
+char *mx_dot_resolver(char *not_resolved_wd);
 // |jobs|
 void mx_jobs(t_proc *proc);
 // |exit|

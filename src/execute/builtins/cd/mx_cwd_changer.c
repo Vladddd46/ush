@@ -10,9 +10,9 @@ void mx_cwd_changer(t_local_env **local_env, char *new_cwd, char *old_cwd) {
     mx_local_var_value_resetter(local_env, "OLDPWD", mx_string_copy(old_cwd));
 
     if (getenv("PWD") != NULL)
-        setenv("PWD", new_cwd, 1);
+        setenv("PWD", mx_string_copy(new_cwd), 1);
     if (getenv("OLDPWD") != NULL)
-        setenv("OLDPWD", old_cwd, 1);
+        setenv("OLDPWD", mx_string_copy(old_cwd), 1);
     chdir(new_cwd);
 }
 
