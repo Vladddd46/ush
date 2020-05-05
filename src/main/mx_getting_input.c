@@ -2,18 +2,21 @@
 
 
 // Getting user`s input depenting on tty
-char *mx_getting_input() {
+char *mx_getting_input(t_local_env **local_env) {
     char *input;
     size_t size;
+    char *promt;
     // Save orig. terminal settings.need for input in ncanonical mode.
     struct termios orig_termios;
     tcgetattr(0, &orig_termios);
 
     if (isatty(0)) {
-        write(1, "u$h> ", 5);
-        input = mx_input(orig_termios);
+        promt = mx_get_var_value(local_env, "PROMPT");
+        write(1, promt, mx_strlen(promt));
+        input = mx_input(orig_termios, local_env);
     }
     else {
+        // getline func. reallocates mem if it`s not enough.
         size = 100;
         input = mx_strnew(size);
         getline(&input, &size, stdin);

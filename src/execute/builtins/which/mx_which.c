@@ -48,12 +48,12 @@ static void is_builtin(char *name, int *found, char *flags) {
 static void s_flag_resolver(char *flags, int found, t_local_env **local_env) {
     if (flags[1] == 's') {
         if (found)
-            mx_push_front_local_env(local_env, "?", "0", NULL);
+            mx_local_var_value_resetter(local_env, "?", mx_string_copy("0"));
         else
-            mx_push_front_local_env(local_env, "?", "1", NULL);
+            mx_local_var_value_resetter(local_env, "?", mx_string_copy("1"));
     }
     else
-        mx_push_front_local_env(local_env, "?", "0", NULL);
+        mx_local_var_value_resetter(local_env, "?", mx_string_copy("0"));
 }
 
 void mx_which(char **cmd, t_local_env **local_env) {

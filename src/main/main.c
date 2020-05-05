@@ -82,7 +82,7 @@ static int restart_loop(char **user_input) {
 static void loop(t_proc *proc_list, char *user_input, 
                 char **splt_by_semicolon, t_local_env **local_env) {
     while (1) {
-        user_input = mx_getting_input();
+        user_input = mx_getting_input(local_env);
         if (restart_loop(&user_input))
             continue;
         splt_by_semicolon = mx_semicolon_divider(user_input);
@@ -98,6 +98,7 @@ static void loop(t_proc *proc_list, char *user_input,
     }
 }
 
+// Adds some vars into local shell enviroment.
 static void local_env_init(t_local_env **local_env) {
   char pwd[4026];
 
@@ -108,6 +109,8 @@ static void local_env_init(t_local_env **local_env) {
                           mx_string_copy(pwd), NULL);
   mx_push_front_local_env(local_env, mx_string_copy("?"), 
                           mx_string_copy("0"), NULL);
+  mx_push_front_local_env(local_env, mx_string_copy("PROMPT"), 
+                          mx_string_copy("u$h> "), NULL);
 }
 
 int main() {

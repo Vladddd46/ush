@@ -27,10 +27,14 @@ static void input_printer(char *input) {
     }
 }
 
-void mx_screen_update(char *input, char buff) {
+void mx_screen_update(char *input, char buff, t_local_env **local_env) {
+    char *promt;
+
     if (buff == 127) {
         line_cleaner(input);
-        write(1, "\ru$h> ", 7);
+        promt = mx_get_var_value(local_env, "PROMPT");
+        write(1, "\r", 1);
+        write(1, promt, mx_strlen(promt));
         input_printer(input);
     }
     else if (buff != '\n' && buff != 127)

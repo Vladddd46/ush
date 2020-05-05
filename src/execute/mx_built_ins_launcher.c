@@ -35,6 +35,8 @@ void mx_built_ins_launcher(char **cmd_expression, t_proc **proc,
         mx_color(cmd_expression);
     else if (mx_strcmp(cmd_expression[0], "bgcolor") == 0)
         mx_bgcolor(cmd_expression);
+    else if (mx_strcmp(cmd_expression[0], "prompt") == 0)
+        mx_prompt(cmd_expression, local_env);
     refresh_exit_status(cmd_expression, local_env);
 }
 

@@ -28,8 +28,9 @@ static void sigint_handler() {
  *        - in case of backspace erase  char.
  *        - reallocates buffer if it`s size is full.
  */
-static void post_input(char **input, char buff, int *size, int *index) {
-    mx_screen_update(input[0], buff);
+static void post_input(char **input, char buff, int *size, 
+                        int *index, t_local_env **local_env) {
+    mx_screen_update(input[0], buff, local_env);
     if (buff == 127) {
         if (*index != 0) {
             *index -= 1;
@@ -43,7 +44,7 @@ static void post_input(char **input, char buff, int *size, int *index) {
     }
 }
 
-char *mx_input(struct termios orig_termios) {
+char *mx_input(struct termios orig_termios, t_local_env **local_env) {
     char buff = '\0';
     int  size = 100;
     char *input = mx_strnew(size);
@@ -59,7 +60,7 @@ char *mx_input(struct termios orig_termios) {
          }
         read(0, &buff, 1);
         mx_ctrl_d(buff, orig_termios);
-        post_input(&input, buff, &size, &index);
+        post_input(&input, buff, &size, &index, local_env);
         mx_disable_raw_mode(orig_termios);
     }
     return buff_cutter(&input, &index);

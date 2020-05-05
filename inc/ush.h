@@ -75,14 +75,14 @@ typedef struct s_local_env {
 /* MAIN */
 void mx_main2(char *cmd, t_proc **proc_list, t_local_env **local_env);
 void  mx_shlvl_adder();
-char  *mx_getting_input();
+char  *mx_getting_input(t_local_env **local_env);
 
 /* INPUT MODULE */
-char *mx_input(struct termios orig_termios);
+char *mx_input(struct termios orig_termios, t_local_env **local_env);
 void mx_enable_raw_mode(struct termios orig_termios);
 void mx_disable_raw_mode(struct termios orig_termios);
 void mx_ctrl_d(char buff, struct termios orig_termios);
-void mx_screen_update(char *input, char buff);
+void mx_screen_update(char *input, char buff, t_local_env **local_env);
 void mx_reallocation(char **input, int *index, int *size);
 // balanced parentheses checker
 int  mx_balanced_parentheses_checker(char *input);
@@ -200,6 +200,8 @@ void mx_no_such_var_msg(char *name);
 // color 
 void mx_color(char **cmd_expression);
 void mx_bgcolor(char **cmd_expression);
+// prompt
+void mx_prompt(char **cmd_expr, t_local_env **local_env);
 /* ------------- */
 
 /* LIBMX */
