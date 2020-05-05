@@ -23,10 +23,11 @@ static char **correct_command_retriever(char **old_cwd, int bin_index) {
     return new_cwd;
 }
 
-void mx_env_exe(char **cmd, int binary_index, t_proc **proc, char *path) {
+void mx_env_exe(char **cmd, int binary_index, t_proc **proc, 
+                        char *path, t_local_env **local_env) {
     char **new_cwd = correct_command_retriever(cmd, binary_index);
     // Print debug
-    mx_external(new_cwd, proc, path);
+    mx_external(new_cwd, proc, path, local_env);
     mx_arr_freesher(new_cwd);
 }
 

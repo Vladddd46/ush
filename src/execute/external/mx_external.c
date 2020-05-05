@@ -38,12 +38,13 @@ static void child(int *exe_status, char **cmd_expression, char *path) {
     mx_child_exit(*exe_status, cmd_expression);
 }
 
-int mx_external(char **cmd_expression, t_proc **proc, char *path) {
+int mx_external(char **cmd_expression, t_proc **proc, 
+                char *path, t_local_env **local_env) {
     int   exit_status = 1;
     int   status;
     int   exe_status; 
     int   parent_pid = getpid();
-    pid_t proccess = fork();
+    pid_t proccess   = fork();
 
     if (proccess != 0)
         mx_push_proc_front(&proc[0], proccess, cmd_expression[0]);
@@ -52,7 +53,7 @@ int mx_external(char **cmd_expression, t_proc **proc, char *path) {
     else {
         waitpid(proccess, &status, WUNTRACED);
         char *status_itoa = mx_itoa(status);
-        setenv("?", status_itoa, 1);
+        mx_local_var_value_resetter(local_env, "?", mx_string_copy(status_itoa));
         free(status_itoa);
         mx_controlling_terminal_change(parent_pid);
         mx_signals_ignore();

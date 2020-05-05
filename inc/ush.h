@@ -101,9 +101,9 @@ void mx_pwd_replace(char **arg_splt);
 void mx_oldpwd_replace(char **arg_splt);
 void mx_tilda_and_user_name(char **arg_splt);
 // variable substitution
-void mx_variable_substitution(char **cmd);
+void mx_variable_substitution(char **cmd, t_local_env **local_env);
 int  mx_end_index_finder(char *str, int dollar_indx);
-char *mx_env_value_get(char *str, int start_indx, int end_indx);
+char *mx_env_value_get(char *str, int start_indx, int end_indx, t_local_env **local_env);
 char *mx_str_edit(char *str, char *value, int indx1, int indx2);
 // command substitution
 void mx_cmd_substitution(char **cmd, t_proc **proc, t_local_env **local_env);
@@ -133,7 +133,7 @@ void            mx_prs_blocks_push_back(t_parsed_blocks **list,
 int mx_execute(char **cmd_expression, t_proc **proc, t_local_env **local_env);
 void mx_built_ins_launcher(char **cmd_expression, t_proc **proc, t_local_env **local_env);
 int  mx_is_built_in(char *cmd);
-int  mx_external(char **cmd_expression, t_proc **proc, char *path);
+int  mx_external(char **cmd_expression, t_proc **proc, char *path, t_local_env **local_env);
 int  mx_executing(char **cmd_expression, char *path);
 void mx_child_exit(int exe_status, char **cmd_expression);
 char *mx_find_external_storage_path(char *external_name, char *path);
@@ -142,7 +142,7 @@ char *mx_find_external_storage_path(char *external_name, char *path);
 /* BUITIN`S */
 int  mx_which_usage_err(char **cmd);
 char *mx_which_flags_determine(char **cmd, int *arg_index);
-void mx_which(char **cmd);
+void mx_which(char **cmd, t_local_env **local_env);
 // |echo|
 void mx_echo(char **cmd);
 char *mx_arg_edit(char *old_arg, char *flags);
@@ -176,18 +176,18 @@ int    mx_no_current_job_err(t_proc *proc);
 t_proc *mx_create_proc_node(pid_t pid, char *proc_name, int id);
 void   mx_push_proc_front(t_proc **list, pid_t pid, char *proc_name);
 // |env|
-void mx_env(char **cmd, t_proc **proc);
+void mx_env(char **cmd, t_proc **proc, t_local_env **local_env);
 void mx_print_env();
 int  mx_invalid_option_checker(char **cmd);
-void mx_env_exe(char **cmd, int binary_index, t_proc **proc, char *path);
+void mx_env_exe(char **cmd, int binary_index, t_proc **proc, char *path, t_local_env **local_env);
 // char **mx_env_list_to_arr_remaker(t_env **env);
 void mx_option_requires_an_argument(char *option);
 int  mx_binary_index_finder(char **cmd,   int start);
 void mx_specified_vars_setter(char **cmd, int start);
 void mx_specified_vars_unsetter(char **cmd, int start);
-void mx_env_flag_u(char **cmd, t_proc **proc);
-void mx_env_flag_i(char **cmd, t_proc **proc);
-void mx_env_flag_p(char **cmd, t_proc **proc);
+void mx_env_flag_u(char **cmd, t_proc **proc, t_local_env **local_env);
+void mx_env_flag_i(char **cmd, t_proc **proc, t_local_env **local_env);
+void mx_env_flag_p(char **cmd, t_proc **proc, t_local_env **local_env);
 // |export|
 void mx_export(char **cmd);
 void mx_export_printer(void);

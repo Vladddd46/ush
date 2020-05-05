@@ -38,7 +38,8 @@ static char *value_retriever(char *str, int start_indx, int end_indx) {
     return new_str;
 }
 
-char *mx_env_value_get(char *str, int start_indx, int end_indx) {
+char *mx_env_value_get(char *str, int start_indx, int end_indx, 
+                                    t_local_env **local_env) {
     char *value;
     char *env_value;
 
@@ -46,7 +47,10 @@ char *mx_env_value_get(char *str, int start_indx, int end_indx) {
     if (end_indx - start_indx == 1 && str[end_indx] == '$')
         return mx_itoa((int)getpid());
     value = value_retriever(str, start_indx, end_indx);
-    env_value = getenv(value);
+    if (!strcmp(value, "?"))
+        env_value = mx_get_var_value(local_env, "?");
+    else
+        env_value = getenv(value);
     if (env_value == NULL)
         env_value = mx_strnew(1);
     free(value);

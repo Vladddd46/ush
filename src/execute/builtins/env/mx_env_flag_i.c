@@ -55,7 +55,7 @@ static void print_specified_vars(char **cmd) {
     }
 }
 
-void mx_env_flag_i(char **cmd, t_proc **proc) {
+void mx_env_flag_i(char **cmd, t_proc **proc, t_local_env **local_env) {
     int binary_index;
     char **copy_env = mx_arr_copy(environ);
 
@@ -65,7 +65,7 @@ void mx_env_flag_i(char **cmd, t_proc **proc) {
     binary_index = mx_binary_index_finder(cmd, 2);
     if (cmd[binary_index]) {
         mx_specified_vars_setter(cmd, 2);
-        mx_env_exe(cmd, binary_index, proc, getenv("PATH"));
+        mx_env_exe(cmd, binary_index, proc, getenv("PATH"), local_env);
         specified_vars_unset(cmd, 2);
     }
     else

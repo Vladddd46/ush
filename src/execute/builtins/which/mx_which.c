@@ -45,18 +45,18 @@ static void is_builtin(char *name, int *found, char *flags) {
     }
 }
 
-static void s_flag_resolver(char *flags, int found) {
+static void s_flag_resolver(char *flags, int found, t_local_env **local_env) {
     if (flags[1] == 's') {
         if (found)
-            setenv("?", "0", 1);
+            mx_push_front_local_env(local_env, "?", "0", NULL);
         else
-            setenv("?", "1", 1);
+            mx_push_front_local_env(local_env, "?", "1", NULL);
     }
     else
-        setenv("?", "0", 1);
+        mx_push_front_local_env(local_env, "?", "0", NULL);
 }
 
-void mx_which(char **cmd) {
+void mx_which(char **cmd, t_local_env **local_env) {
     if(mx_which_usage_err(cmd))
         return;
     int  arg_index       = 1;
@@ -73,7 +73,7 @@ void mx_which(char **cmd) {
         find(cmd[arg_index], pathes, flags, &found);
         arg_index++;
     }
-    s_flag_resolver(flags, found);
+    s_flag_resolver(flags, found, local_env);
     free(flags);
     mx_arr_freesher(pathes);
 }

@@ -12,7 +12,7 @@ static void env_printer_wrapper(char **cmd) {
     }
 }
 
-void mx_env_flag_p(char **cmd, t_proc **proc) {
+void mx_env_flag_p(char **cmd, t_proc **proc, t_local_env **local_env) {
     int binary_index;
 
     if (mx_strarr_size(cmd) == 2) {
@@ -26,7 +26,7 @@ void mx_env_flag_p(char **cmd, t_proc **proc) {
     binary_index = mx_binary_index_finder(cmd, 3);
     if (cmd[binary_index]) {
         mx_specified_vars_setter(cmd, 3);
-        mx_env_exe(cmd, binary_index, proc, cmd[2]);
+        mx_env_exe(cmd, binary_index, proc, cmd[2], local_env);
         mx_specified_vars_unsetter(cmd, 3);
     }
     else

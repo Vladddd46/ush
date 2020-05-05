@@ -16,7 +16,8 @@ static int is_omitted(int *omit, char c) {
     return 0;
 }
 
-static void subst_loop(int *omit, int *i, int *j, int *end_indx, char **cmd) {
+static void subst_loop(int *omit, int *i, int *j, int *end_indx, char **cmd, 
+                                                    t_local_env **local_env) {
     char *value;
     char *edited_str;
 
@@ -28,7 +29,7 @@ static void subst_loop(int *omit, int *i, int *j, int *end_indx, char **cmd) {
             else if (cmd[*i][*j] == '$' && (mx_is_alphadigit(cmd[*i][*j + 1]) 
                     || mx_is_in_arr("$?", cmd[*i][*j + 1]) || cmd[*i][*j + 1] == '{')) {
                 *end_indx   = mx_end_index_finder(cmd[*i], *j);
-                value       = mx_env_value_get(cmd[*i], *j, *end_indx);
+                value       = mx_env_value_get(cmd[*i], *j, *end_indx, local_env);
                 edited_str  = mx_str_edit(cmd[*i], value, *j, *end_indx);
                 free(cmd[*i]);
                 cmd[*i] = edited_str;
@@ -41,13 +42,13 @@ static void subst_loop(int *omit, int *i, int *j, int *end_indx, char **cmd) {
 }
 
 // i,j - walkers
-void mx_variable_substitution(char **cmd) {
+void mx_variable_substitution(char **cmd, t_local_env **local_env) {
     int  omit = 0;
     int  i    = 0;
     int  j;
     int  end_indx;
     
-    subst_loop(&omit, &i, &j, &end_indx, cmd);
+    subst_loop(&omit, &i, &j, &end_indx, cmd, local_env);
 }
 
 

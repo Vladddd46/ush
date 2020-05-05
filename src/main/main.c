@@ -115,6 +115,7 @@ int main() {
      * proc_list - list of processes, which are suspended by a signal.
      * user_input - string, which represents user`s input.
      * splt_by_semicolon - user`s input splited by ';'.
+     * local_env - list, which contains additional variables, such as ?
      */
     t_proc      *proc_list          = NULL;
     char        *user_input         = NULL;
@@ -125,7 +126,6 @@ int main() {
     mx_signals_ignore();
     mx_shlvl_adder();
     // Setting variable for exit status.
-    putenv("?=0"); 
     loop(proc_list, user_input, splt_by_semicolon, &local_env);
 }
 

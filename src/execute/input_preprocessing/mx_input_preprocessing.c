@@ -13,7 +13,7 @@ void mx_input_preprocessing(char **cmd_expression, t_proc **proc, t_local_env **
     // Replaces tilda where it`s needed 
     mx_tilda_handler(cmd_expression);
     // ${variable} $variable replacer 
-    mx_variable_substitution(cmd_expression);
+    mx_variable_substitution(cmd_expression, local_env);
     // Command substitution
     mx_cmd_substitution(cmd_expression, proc, local_env);
     // Argument preprocessing   
