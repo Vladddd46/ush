@@ -43,6 +43,7 @@ static char *parent_proc(int pipefd[2]) {
         buffer_string[index] = buff;
         index++;
     }
+    buffer_string[mx_strlen(buffer_string) - 1] = '\0';
     result = mx_string_copy(buffer_string);
     free(buffer_string);
     return result;
