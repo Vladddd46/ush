@@ -5,7 +5,7 @@
  *  Example: 
  *      "echo ";;;;;;;";pwd;ls"
  *  Output:
- *       {"echo ";;;;;;:"", "pwd", "ls"}
+ *       {"echo ";;;;;;:", "pwd", "ls"}
  */
 
 
@@ -23,6 +23,35 @@ static int status_value(int status, char chr) {
     return tmp_status;
 }
 
+static int syntax_exception(char *input) {
+    int status = 0;
+    char *msg;
+
+    for (int i = 0; i < mx_strlen(input)-1; ++i) {
+        status = status_value(status, input[i]);
+        if (input[i] == ';' && input[i+1] == ';' && status == 0) {
+            msg = "\nu$h: syntax error near unexpected token \';;\'";
+            write(2, msg, mx_strlen(msg));
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// Replace all semicolons in quotes with non-printable chars(ASCII 20)
+static void semicolon_in_quotes_saver(char *new_str, char *input) {
+    int status = 0;
+
+    for (int i = 0; input[i]; ++i) {
+        status = status_value(status, input[i]);
+        if (input[i] == ';' && status != 0)
+            new_str[i] = 20;
+        else
+            new_str[i] = input[i];
+    }
+}
+
+// Replace ASCII 20 characters with semicolons ";"
 static void restore(char **arr) {
     char *new;
 
@@ -39,35 +68,13 @@ static void restore(char **arr) {
     }
 }
 
-static int syntax_exception(char *input) {
-    int status = 0;
-    char *msg;
-
-    for (int i = 0; i < mx_strlen(input)-1; ++i) {
-        status = status_value(status, input[i]);
-        if (input[i] == ';' && input[i+1] == ';' && status == 0) {
-            msg = "\nu$h: syntax error near unexpected token \';;\'";
-            write(2, msg, mx_strlen(msg));
-            return 1;
-        }
-    }
-    return 0;
-}
-
 char **mx_semicolon_divider(char *input) {
     if (syntax_exception(input))
         return NULL;
     char *new_str = mx_strnew(mx_strlen(input));
-    int status = 0;
     char **arr;
     
-    for (int i = 0; input[i]; ++i) {
-        status = status_value(status, input[i]);
-        if (input[i] == ';' && status != 0)
-            new_str[i] = 20;
-        else
-            new_str[i] = input[i];
-    }
+    semicolon_in_quotes_saver(new_str, input);
     arr = mx_str_to_arr(new_str, ';');
     free(new_str);
     if (*arr == NULL) {

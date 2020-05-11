@@ -99,7 +99,7 @@ static void loop(t_proc *proc_list, char *user_input,
 }
 
 // Adds some vars into local shell enviroment.
-static void local_env_init(t_local_env **local_env) {
+static void env_init(t_local_env **local_env) {
   char pwd[4026];
 
   getcwd(pwd, 4026);
@@ -125,7 +125,7 @@ int main() {
     char        **splt_by_semicolon = NULL;
     t_local_env *local_env          = NULL;
 
-    local_env_init(&local_env);
+    env_init(&local_env);
     mx_signals_ignore();
     mx_shlvl_adder();
     // Setting variable for exit status.
