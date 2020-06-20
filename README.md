@@ -30,4 +30,4 @@ It contains:
       > variable substitution ${VARNAME};$VARNAME
       > command substitution  `command`; $(command)
 GitHub: Vladddd46
-10.12.2020
+10.02.2020
