@@ -1,5 +1,4 @@
 #pragma once
-/*  LIBRARIES  */
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,9 +25,9 @@
 #include <sys/wait.h>
 #include <setjmp.h>
 #include <stdarg.h>
-/* ------------- */
 
 extern char **environ;
+
 /* STRUCTURES */
 // parser structure. each node represents one inputed command
 //-separated by separator (NULL in case of no separators)
@@ -88,7 +87,6 @@ void mx_reallocation(char **input, int *index, int *size);
 int  mx_balanced_parentheses_checker(char *input);
 void mx_push_front_brace(t_braces_stack **list, char brace, int index);
 void mx_pop_back_brace_stack(t_braces_stack **list);
-/* ------------- */
 
 /* INPUT PREPROCESSER */
 void mx_input_preprocessing(char **cmd_expression, t_proc **proc, t_local_env **local_env);
@@ -110,7 +108,6 @@ void mx_cmd_substitution(char **cmd, t_proc **proc, t_local_env **local_env);
 char *mx_exe(char **cmd_arr, t_proc **proc, t_local_env **local_env);
 char *mx_subcmd_exe(char *expr, int start_indx, 
                     int end_indx, t_proc **proc, t_local_env **local_env);
-/* ------------- */
 
 /* PARSING MODULE */
 int             mx_parse_error(char **input_arr);
@@ -127,7 +124,6 @@ void            mx_prs_blocks_push_back(t_parsed_blocks **list,
                                         char **cmd_expr, 
                                         char *separator,  
                                         int builtin); 
-/* ------------- */
 
 /* EXECUTE MODULE */
 int mx_execute(char **cmd_expression, t_proc **proc, t_local_env **local_env);
@@ -137,7 +133,6 @@ int  mx_external(char **cmd_expression, t_proc **proc, char *path, t_local_env *
 int  mx_executing(char **cmd_expression, char *path);
 void mx_child_exit(int exe_status, char **cmd_expression);
 char *mx_find_external_storage_path(char *external_name, char *path);
-/* ------------- */
 
 /* BUITIN`S */
 int  mx_which_usage_err(char **cmd);
@@ -202,7 +197,6 @@ void mx_color(char **cmd_expression);
 void mx_bgcolor(char **cmd_expression);
 // prompt
 void mx_prompt(char **cmd_expr, t_local_env **local_env);
-/* ------------- */
 
 /* LIBMX */
 char *mx_file_to_str(const char *file);
@@ -244,7 +238,6 @@ int  mx_is_alphadigit(char c);
 char **mx_arr_copy(char **old_arr);
 char *mx_str_realloc(char *str, int added_size);
 char *mx_upper_to_lower(char *old_str);
-/* ------------- */
 
 /* MINI_FUNC */
 void   mx_signals_restore();
@@ -254,18 +247,15 @@ void   mx_command_not_found_msg(char *cmd_name);
 void   mx_controlling_terminal_change(pid_t proc_id);
 // lib
 void mx_free_strs(int num, ...);
-/* ------------- */
 
 /* LOCAL ENVIROMENT */
 void mx_push_front_local_env(t_local_env **list, char *var_name, char *var_value, char **other_data);
 char *mx_get_var_value(t_local_env **list, char *var_name);
 void mx_local_var_value_resetter(t_local_env **local_env, char *var_name, char *new_value);
-/* ------------- */
 
 /* ERRORS */
 void mx_too_many_arguments_error(char *builtin_name);
 void mx_bad_option(char *option, char *builtin_name);
-/* ------------- */
 
 
 

@@ -1,9 +1,9 @@
 #include "ush.h"
 
 /*
-    * creates and pushes back node 
-      in linked list t_parsed_blocks **list
-*/
+ * creates and pushes back node 
+ * in linked list t_parsed_blocks **list
+ */
 void mx_prs_blocks_push_back(t_parsed_blocks **list, 
                             char **cmd_expr, 
                             char *separator,  

@@ -3,7 +3,7 @@
  * Takes "pretty" expression (f.e "ls && pwd || sleep 10")
  * Returns array of words divided by ' ' (space)
  * PS. spaces in quotes ("   "/' ') and \(space) are skipped.
-*/
+ */
 
 // Change spaces, which are in quotes <""> or <''> into ASCII 12
 static void spaces_in_quotes(char **str, char **dirty_str, int *index) {
