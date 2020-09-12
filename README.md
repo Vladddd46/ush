@@ -1,6 +1,13 @@
 <h1>USH</h1>
 <p>My own implementation of <b>unix shell</b>.</p>
 <p>A <b>Unix shell</b> is a command-line interpreter or shell that provides a command line user interface for Unix-like operating systems.</p>
+<p>For more details <a href="https://en.wikipedia.org/wiki/Unix_shell">Wiki</a></p>
+
+<h2>Compilation</h2>
+<ul>
+    <li>Write <b>make</b> in root directory to compile project.</li>
+    <li>Compilation was done only on MacOS. Other OS were not tested</li>
+</ul>
 
 It contains:
 
