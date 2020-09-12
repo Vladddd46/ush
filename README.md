@@ -35,5 +35,9 @@ It contains:
       > ~; ~/dir_name; ~username/dirname; ~+/dirname; ~-/dirname
       > variable substitution ${VARNAME};$VARNAME
       > command substitution  `command`; $(command)
-GitHub: Vladddd46
-10.02.2020
+
+<h2>Overview</h2>
+
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/11888485/93004705-490e0380-f552-11ea-85b5-d259c84309d1.gif)
+
+
