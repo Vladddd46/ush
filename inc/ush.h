@@ -58,7 +58,6 @@ typedef struct s_braces_stack {
     int  index;
     struct s_braces_stack *next;
 } t_braces_stack;
-/* ------------- */
 
 // local enviroment
 typedef struct s_local_env {
@@ -69,7 +68,6 @@ typedef struct s_local_env {
 
     struct s_local_env *next;
 } t_local_env;
-/* ------------- */
 
 /* MAIN */
 void mx_main2(char *cmd, t_proc **proc_list, t_local_env **local_env);
@@ -175,7 +173,6 @@ void mx_env(char **cmd, t_proc **proc, t_local_env **local_env);
 void mx_print_env();
 int  mx_invalid_option_checker(char **cmd);
 void mx_env_exe(char **cmd, int binary_index, t_proc **proc, char *path, t_local_env **local_env);
-// char **mx_env_list_to_arr_remaker(t_env **env);
 void mx_option_requires_an_argument(char *option);
 int  mx_binary_index_finder(char **cmd,   int start);
 void mx_specified_vars_setter(char **cmd, int start);
