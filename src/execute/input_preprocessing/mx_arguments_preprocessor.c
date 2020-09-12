@@ -37,7 +37,7 @@ static void other(char **cmd) {
 
 void mx_arguments_preprocessor(char **cmd) {
     
-    if (mx_strcmp(cmd[0], "echo") == 0){
+    if (mx_strcmp(cmd[0], "echo") == 0) {
         // echo();
     }
     else

@@ -236,14 +236,13 @@ char **mx_arr_copy(char **old_arr);
 char *mx_str_realloc(char *str, int added_size);
 char *mx_upper_to_lower(char *old_str);
 
-/* MINI_FUNC */
+/* MINI FUNCTIONS */
 void   mx_signals_restore();
 void   mx_signals_ignore();
 void   mx_suspended_process_msg(char *str);
 void   mx_command_not_found_msg(char *cmd_name);
 void   mx_controlling_terminal_change(pid_t proc_id);
-// lib
-void mx_free_strs(int num, ...);
+void   mx_free_strs(int num, ...);
 
 /* LOCAL ENVIROMENT */
 void mx_push_front_local_env(t_local_env **list, char *var_name, char *var_value, char **other_data);
