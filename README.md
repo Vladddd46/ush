@@ -9,32 +9,29 @@
     <li>Compilation was done only on <b>MacOS</b>. Other OS were not tested</li>
 </ul>
 
-It contains:
-
-    - user`s input\n
-      > backspace
-      > logic operators || && 
-      > cmd separator ;
-    - external binary executing
-      > path/bin_name; ls; clear; mkdir; ./bin_name ... etc.
-    - 9 built-ins:
-      > export
-      > unset
-      > exit
-      > env   [-i -P -u]
-      > cd    [-s -P -]
-      > pwd   [-L -P]
-      > which [-a -s]
-      > echo  [-n -e -E]
-      > fg    [%n %str]
-    - signals handling
-      > Ctrl+D
-      > Ctrl+Z
-      > Ctrl+C
-    - substitutions
-      > ~; ~/dir_name; ~username/dirname; ~+/dirname; ~-/dirname
-      > variable substitution ${VARNAME};$VARNAME
-      > command substitution  `command`; $(command)
+<h2>Functional overview:</h2>
+<ul>
+    <li>backspace</li>
+    <li>command separator `;`</li>
+    <li>logic operators `||` and `&&`</li>
+    <li>external binary executing: path/binary_name, ls, mkdir etc. (all binaries form standart folders /bin /etc/bin etc.)</li>
+    <li>export built-in</li>
+    
+    <li>unset built-in</li>
+    <li>export built-in</li>
+    <li>exit built-in</li>
+    <li>env [-i -P -u] built-in</li>
+    <li>cd [-s -P -] built-in</li>
+    <li>pwd [-L -P] built-in</li>
+    <li>which [-a -s] built-in</li>
+    
+    <li>echo [-n -e -E] built-in</li>
+    <li>fg [%n %str] built-in</li>
+    <li>Signals handling: <b>CTRL+Z</b> <b>CTRL+D</b> <b>CTRL+C</b></li>
+    <li>tilda: ~; ~/dir_name; ~username/dir_name; ~+/dir_name; ~-/dir_name</li>
+    <li>variable substitution ${VARNAME}; $VARNAME</li>
+    <li>command substitution  `command`; $(command)</li>
+</ul>
 
 <h2>Overview</h2>
 
