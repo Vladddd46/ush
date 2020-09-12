@@ -1,7 +1,5 @@
-# ush
->>> This is my own implementation of UNIX shell
+<h1>USH</h1>
 
-===================================================
 
 It contains:
 
