@@ -1,5 +1,6 @@
 <h1>USH</h1>
-
+<p>My own implementation of unix shell.</p>
+<p>A Unix shell is a command-line interpreter or shell that provides a command line user interface for Unix-like operating systems.</p>
 
 It contains:
 
