@@ -6,7 +6,7 @@
 <h2>Compilation</h2>
 <ul>
     <li>Write <b>make</b> in root directory to compile project.</li>
-    <li>Compilation was done only on MacOS. Other OS were not tested</li>
+    <li>Compilation was done only on <b>MacOS</b>. Other OS were not tested</li>
 </ul>
 
 It contains:
