@@ -16,7 +16,6 @@
     <li>logic operators `||` and `&&`</li>
     <li>external binary executing: path/binary_name, ls, mkdir etc. (all binaries form standart folders /bin /etc/bin etc.)</li>
     <li>export built-in</li>
-    
     <li>unset built-in</li>
     <li>export built-in</li>
     <li>exit built-in</li>
@@ -24,7 +23,6 @@
     <li>cd [-s -P -] built-in</li>
     <li>pwd [-L -P] built-in</li>
     <li>which [-a -s] built-in</li>
-    
     <li>echo [-n -e -E] built-in</li>
     <li>fg [%n %str] built-in</li>
     <li>Signals handling: <b>CTRL+Z</b> <b>CTRL+D</b> <b>CTRL+C</b></li>
